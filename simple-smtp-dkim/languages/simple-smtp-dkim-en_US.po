@@ -1,0 +1,1648 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Simple SMTP & DKIM\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-03-02 20:04+0000\n"
+"PO-Revision-Date: 2026-03-02 20:30+0000\n"
+"Last-Translator: Astral Internet\n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.8.2; wp-6.9.1; php-8.3.30\n"
+"X-Domain: simple-smtp-dkim"
+
+#: includes/admin/tab-dashboard.php:33
+#, php-format
+msgid "%1$d of %2$d steps completed"
+msgstr "%1$d of %2$d steps completed"
+
+#: includes/admin/tab-mailer-oauth.php:126
+msgid "-----BEGIN PRIVATE KEY-----\\n...\\n-----END PRIVATE KEY-----"
+msgstr "-----BEGIN PRIVATE KEY-----\\n...\\n-----END PRIVATE KEY-----"
+
+#: includes/admin/tab-logs.php:34
+msgid "0 = keep forever."
+msgstr "0 = keep forever."
+
+#. Description of the plugin
+msgid "A secure SMTP configuration manager with DKIM support for WordPress"
+msgstr "A secure SMTP configuration manager with DKIM support for WordPress"
+
+#: includes/class-smtp-ajax.php:117
+msgid "A valid recipient email address is required."
+msgstr "A valid recipient email address is required."
+
+#: includes/admin/tab-logs.php:106 includes/admin/tab-logs.php:127
+msgid "Actions"
+msgstr "Actions"
+
+#: includes/admin/tab-mailer.php:109
+#, php-format
+msgid "Activate the %s mailer. Only one mailer type can be active at a time."
+msgstr "Activate the %s mailer. Only one mailer type can be active at a time."
+
+#: includes/admin/tab-mailer.php:38
+msgid "Active"
+msgstr "Active"
+
+#: simple-smtp-dkim.php:145
+msgid ""
+"Add this line to your <code>wp-config.php</code>, just before <code>/* "
+"That's all, stop editing! */</code>:"
+msgstr ""
+"Add this line to your <code>wp-config.php</code>, just before <code>/* "
+"That's all, stop editing! */</code>:"
+
+#: includes/class-smtp-admin.php:133
+msgid "Advanced"
+msgstr "Advanced"
+
+#: includes/admin/tab-dkim.php:147
+msgid "Advanced / Manual Configuration"
+msgstr "Advanced / Manual Configuration"
+
+#: includes/admin/save-handlers.php:223
+msgid "Advanced settings saved."
+msgstr "Advanced settings saved."
+
+#: includes/admin/tab-mailer-smtp.php:74 includes/admin/tab-smtp.php:103
+msgid "AES-256-CBC encrypted"
+msgstr "AES-256-CBC encrypted"
+
+#: includes/admin/tab-logs.php:87
+msgid "All"
+msgstr "All"
+
+#: includes/admin/tab-advanced.php:47
+msgid ""
+"All email logs, DKIM keys, settings and configuration will be permanently "
+"deleted."
+msgstr ""
+"All email logs, DKIM keys, settings and configuration will be permanently "
+"deleted."
+
+#: includes/class-smtp-ajax.php:285
+msgid "All logs deleted."
+msgstr "All logs deleted."
+
+#: includes/admin/tab-mailer-oauth.php:104
+msgid "Application (client) ID"
+msgstr "Application (client) ID"
+
+#: includes/class-smtp-admin.php:98
+msgid "Are you sure? This cannot be undone."
+msgstr "Are you sure? This cannot be undone."
+
+#. Author of the plugin
+msgid "Astral Internet"
+msgstr "Astral Internet"
+
+#: includes/class-smtp-mailer.php:638
+msgid "Auth method"
+msgstr "Auth method"
+
+#: includes/admin/tab-mailer-smtp.php:52 includes/admin/tab-smtp.php:81
+msgid "Authentication"
+msgstr "Authentication"
+
+#: includes/admin/tab-mailer-oauth.php:68
+msgid "Authentication Method"
+msgstr "Authentication Method"
+
+#: includes/admin/tab-mailer-oauth.php:77
+msgid "Authorization Code (user consent)"
+msgstr "Authorization Code (user consent)"
+
+#: includes/admin/tab-mailer-oauth.php:73
+msgid ""
+"authorization_code: requires user consent + refresh token (most common). "
+"client_credentials: app-only access, no user interaction (service accounts)."
+msgstr ""
+"authorization_code: requires user consent + refresh token (most common). "
+"client_credentials: app-only access, no user interaction (service accounts)."
+
+#: includes/class-smtp-mailer.php:678
+msgid "automated mailer"
+msgstr "automated mailer"
+
+#: includes/admin/tab-advanced.php:63
+msgid "Available"
+msgstr "Available"
+
+#: includes/admin/tab-mailer-oauth.php:122
+msgid "Certificate Private Key"
+msgstr "Certificate Private Key"
+
+#: includes/admin/tab-mailer-oauth.php:135
+msgid "Certificate Thumbprint"
+msgstr "Certificate Thumbprint"
+
+#: includes/admin/tab-dkim.php:136
+msgid ""
+"Check that your private key is valid and the DNS record is correctly set."
+msgstr ""
+"Check that your private key is valid and the DNS record is correctly set."
+
+#: includes/admin/tab-advanced.php:70
+msgid "Cipher"
+msgstr "Cipher"
+
+#: includes/admin/tab-mailer-oauth.php:99
+msgid "Client Credentials"
+msgstr "Client Credentials"
+
+#: includes/admin/tab-mailer-oauth.php:78
+msgid "Client Credentials (app-only / service account)"
+msgstr "Client Credentials (app-only / service account)"
+
+#: includes/admin/tab-mailer-oauth.php:102
+msgid "Client ID"
+msgstr "Client ID"
+
+#: includes/admin/tab-mailer-oauth.php:89
+#: includes/admin/tab-mailer-oauth.php:110
+msgid "Client Secret"
+msgstr "Client Secret"
+
+#: includes/admin/tab-mailer-oauth.php:85
+msgid ""
+"Client Secret is simpler. Certificate (X.509) is more secure and required by "
+"some organizations."
+msgstr ""
+"Client Secret is simpler. Certificate (X.509) is more secure and required by "
+"some organizations."
+
+#: includes/admin/tab-dkim.php:123 includes/admin/tab-logs.php:147
+msgid "Close"
+msgstr "Close"
+
+#: includes/admin/tab-mailer.php:43
+msgid "Coming soon"
+msgstr "Coming soon"
+
+#: includes/admin/tab-dashboard.php:17
+msgid "Configure DKIM signing"
+msgstr "Configure DKIM signing"
+
+#: includes/admin/tab-dashboard.php:15
+msgid "Configure mail server"
+msgstr "Configure mail server"
+
+#: includes/admin/tab-logs.php:40
+msgid "Content is encrypted before storage. May include sensitive data."
+msgstr "Content is encrypted before storage. May include sensitive data."
+
+#: includes/class-smtp-admin.php:99
+msgid "Copied!"
+msgstr "Copied!"
+
+#: includes/admin/tab-dkim.php:104 includes/admin/tab-dkim.php:115
+msgid "Copy"
+msgstr "Copy"
+
+#: includes/admin/tab-dkim.php:104
+msgid "Copy DNS record name"
+msgstr "Copy DNS record name"
+
+#: includes/admin/tab-dkim.php:115
+msgid "Copy DNS record value"
+msgstr "Copy DNS record value"
+
+#: includes/admin/tab-mailer-oauth.php:238
+msgid ""
+"Copy the <strong>Application (client) ID</strong> and <strong>Directory "
+"(tenant) ID</strong>"
+msgstr ""
+"Copy the <strong>Application (client) ID</strong> and <strong>Directory "
+"(tenant) ID</strong>"
+
+#: includes/admin/tab-mailer-oauth.php:249
+msgid "Copy the <strong>Client ID</strong> and <strong>Client Secret</strong>"
+msgstr "Copy the <strong>Client ID</strong> and <strong>Client Secret</strong>"
+
+#: includes/admin/tab-dkim.php:98
+msgid "Copy this DNS record and add it at your registrar:"
+msgstr "Copy this DNS record and add it at your registrar:"
+
+#: simple-smtp-dkim.php:255
+msgid "Could not create backup."
+msgstr "Could not create backup."
+
+#: simple-smtp-dkim.php:213
+msgid "Could not locate wp-config.php."
+msgstr "Could not locate wp-config.php."
+
+#: simple-smtp-dkim.php:221
+msgid "Could not read wp-config.php."
+msgstr "Could not read wp-config.php."
+
+#: includes/admin/tab-mailer-oauth.php:246
+msgid "Create an <strong>OAuth 2.0 Client ID</strong> (Web application)"
+msgstr "Create an <strong>OAuth 2.0 Client ID</strong> (Web application)"
+
+#: includes/admin/tab-mailer-oauth.php:84
+msgid "Credential Type"
+msgstr "Credential Type"
+
+#: includes/admin/tab-mailer-oauth.php:88
+msgid "Credential type"
+msgstr "Credential type"
+
+#: includes/admin/tab-dashboard.php:93
+msgid "Current Configuration"
+msgstr "Current Configuration"
+
+#: includes/class-smtp-admin.php:129
+msgid "Dashboard"
+msgstr "Dashboard"
+
+#: includes/admin/tab-dkim.php:172
+msgid "Database (encrypted)"
+msgstr "Database (encrypted)"
+
+#: includes/admin/tab-advanced.php:79
+msgid "Database — see admin notice above to migrate to wp-config.php"
+msgstr "Database — see admin notice above to migrate to wp-config.php"
+
+#: includes/admin/tab-dashboard.php:67 includes/admin/tab-logs.php:101
+#: includes/admin/tab-logs.php:111
+msgid "Date"
+msgstr "Date"
+
+#: includes/class-smtp-mailer.php:618
+msgid "Date (UTC)"
+msgstr "Date (UTC)"
+
+#: includes/admin/tab-logs.php:154
+msgid "Date:"
+msgstr "Date:"
+
+#: includes/admin/tab-logs.php:33
+msgid "days"
+msgstr "days"
+
+#: includes/admin/tab-advanced.php:20
+msgid "Debug Mode"
+msgstr "Debug Mode"
+
+#: includes/admin/tab-logs.php:94
+msgid "Delete All"
+msgstr "Delete All"
+
+#: includes/admin/tab-advanced.php:40
+msgid "Delete All Data on Uninstall"
+msgstr "Delete All Data on Uninstall"
+
+#: includes/class-smtp-helpers.php:149 includes/class-smtp-helpers.php:165
+#: includes/class-smtp-mailer.php:556
+msgid "Disabled"
+msgstr "Disabled"
+
+#: includes/class-smtp-admin.php:131 includes/admin/tab-dashboard.php:60
+#: includes/admin/tab-dashboard.php:99 includes/admin/tab-logs.php:62
+#: includes/admin/tab-logs.php:105 includes/admin/tab-logs.php:120
+msgid "DKIM"
+msgstr "DKIM"
+
+#: includes/class-smtp-validator.php:196
+#, php-format
+msgid "DKIM DNS record found at: %s"
+msgstr "DKIM DNS record found at: %s"
+
+#: includes/class-smtp-validator.php:160
+#, php-format
+msgid "DKIM DNS record not found at: %s"
+msgstr "DKIM DNS record not found at: %s"
+
+#: includes/admin/tab-dashboard.php:101
+msgid "DKIM Domain"
+msgstr "DKIM Domain"
+
+#: includes/class-smtp-ajax.php:166
+msgid "DKIM domain is required."
+msgstr "DKIM domain is required."
+
+#: includes/admin/tab-dkim.php:54
+msgid "DKIM is <strong>active</strong> — outgoing emails are being signed."
+msgstr "DKIM is <strong>active</strong> — outgoing emails are being signed."
+
+#: includes/class-smtp-validator.php:60
+msgid "DKIM is currently disabled."
+msgstr "DKIM is currently disabled."
+
+#: includes/class-smtp-validator.php:83
+msgid "DKIM is enabled and configured."
+msgstr "DKIM is enabled and configured."
+
+#: includes/admin/tab-dkim.php:49
+msgid ""
+"DKIM is enabled but <strong>not signing emails</strong> yet. Complete the "
+"DNS validation below to activate signing."
+msgstr ""
+"DKIM is enabled but <strong>not signing emails</strong> yet. Complete the "
+"DNS validation below to activate signing."
+
+#: includes/class-smtp-validator.php:67
+msgid "DKIM is enabled but domain or selector is missing."
+msgstr "DKIM is enabled but domain or selector is missing."
+
+#: includes/class-smtp-validator.php:80
+msgid "DKIM is enabled but private key is missing."
+msgstr "DKIM is enabled but private key is missing."
+
+#: includes/class-smtp-ajax.php:262
+msgid "DKIM keys generated!"
+msgstr "DKIM keys generated!"
+
+#: includes/class-smtp-helpers.php:90
+msgid "DKIM private key file is not readable. Check file permissions."
+msgstr "DKIM private key file is not readable. Check file permissions."
+
+#: includes/class-smtp-helpers.php:57
+msgid "DKIM private key file not found at the specified path."
+msgstr "DKIM private key file not found at the specified path."
+
+#: includes/class-smtp-ajax.php:167
+msgid "DKIM selector is required."
+msgstr "DKIM selector is required."
+
+#: includes/admin/tab-dkim.php:37
+msgid "DKIM Settings"
+msgstr "DKIM Settings"
+
+#: includes/admin/save-handlers.php:185
+msgid "DKIM settings saved."
+msgstr "DKIM settings saved."
+
+#: includes/admin/tab-logs.php:122
+msgid "DKIM Signed"
+msgstr "DKIM Signed"
+
+#: includes/class-smtp-mailer.php:555 includes/class-smtp-mailer.php:556
+msgid "DKIM signing"
+msgstr "DKIM signing"
+
+#: includes/admin/tab-dkim.php:97
+msgid "DNS Record"
+msgstr "DNS Record"
+
+#: includes/class-smtp-validator.php:179
+#, php-format
+msgid "DNS record at %s does not appear to be a valid DKIM record."
+msgstr "DNS record at %s does not appear to be a valid DKIM record."
+
+#: includes/admin/tab-dkim.php:114
+msgid "DNS record value"
+msgstr "DNS record value"
+
+#: includes/admin/tab-dashboard.php:18
+msgid "DNS verified."
+msgstr "DNS verified."
+
+#: includes/admin/tab-dkim.php:60
+msgid "Domain"
+msgstr "Domain"
+
+#: includes/class-smtp-ajax.php:242
+msgid "Domain is required."
+msgstr "Domain is required."
+
+#: includes/admin/tab-mailer.php:131 includes/admin/tab-smtp.php:118
+msgid "Email"
+msgstr "Email"
+
+#: includes/admin/tab-dashboard.php:54
+msgid "Email Activity — Last 30 Days"
+msgstr "Email Activity — Last 30 Days"
+
+#: includes/admin/tab-logs.php:146
+msgid "Email Content"
+msgstr "Email Content"
+
+#: includes/admin/tab-logs.php:157
+msgid "Email content"
+msgstr "Email content"
+
+#: includes/class-smtp-admin.php:132 includes/admin/tab-logs.php:78
+msgid "Email Logs"
+msgstr "Email Logs"
+
+#: includes/admin/tab-mailer-oauth.php:37
+msgid "Email Provider"
+msgstr "Email Provider"
+
+#: includes/admin/tab-mailer.php:102 includes/admin/tab-mailer.php:106
+#, php-format
+msgid "Enable %s Mailer"
+msgstr "Enable %s Mailer"
+
+#: includes/admin/tab-advanced.php:24
+msgid "Enable Debug Logging"
+msgstr "Enable Debug Logging"
+
+#: includes/admin/tab-dkim.php:41
+msgid "Enable DKIM Signing"
+msgstr "Enable DKIM Signing"
+
+#: includes/admin/tab-dashboard.php:86
+msgid "Enable it to see statistics."
+msgstr "Enable it to see statistics."
+
+#: includes/admin/tab-logs.php:27
+msgid "Enable Logging"
+msgstr "Enable Logging"
+
+#: includes/admin/tab-smtp.php:35 includes/admin/tab-smtp.php:38
+msgid "Enable SMTP"
+msgstr "Enable SMTP"
+
+#: includes/admin/tab-mailer-oauth.php:248
+msgid "Enable the <strong>Gmail API</strong> in your project"
+msgstr "Enable the <strong>Gmail API</strong> in your project"
+
+#: includes/class-smtp-helpers.php:147 includes/class-smtp-helpers.php:165
+#: includes/class-smtp-mailer.php:555
+msgid "Enabled"
+msgstr "Enabled"
+
+#: includes/class-smtp-mailer.php:634 includes/admin/tab-mailer-smtp.php:29
+#: includes/admin/tab-smtp.php:58
+msgid "Encryption"
+msgstr "Encryption"
+
+#: includes/class-smtp-encryption.php:279
+msgid "Encryption is available and active"
+msgstr "Encryption is available and active"
+
+#: includes/class-smtp-encryption.php:282
+msgid "Encryption is not available. OpenSSL extension required."
+msgstr "Encryption is not available. OpenSSL extension required."
+
+#: includes/admin/tab-advanced.php:56
+msgid "Encryption Status"
+msgstr "Encryption Status"
+
+#: includes/admin/tab-mailer-smtp.php:76 includes/admin/tab-smtp.php:105
+msgid "Encryption unavailable — stored as plain text"
+msgstr "Encryption unavailable — stored as plain text"
+
+#: includes/admin/tab-mailer-oauth.php:112
+msgid "Enter client secret"
+msgstr "Enter client secret"
+
+#: includes/admin/tab-mailer-smtp.php:68 includes/admin/tab-smtp.php:97
+msgid "Enter SMTP password"
+msgstr "Enter SMTP password"
+
+#: includes/class-smtp-admin.php:97 includes/admin/tab-dashboard.php:67
+msgid "Error"
+msgstr "Error"
+
+#: includes/admin/tab-logs.php:93
+msgid "Export CSV"
+msgstr "Export CSV"
+
+#: includes/admin/tab-dkim.php:215
+msgid "Extract public key"
+msgstr "Extract public key"
+
+#: includes/admin/tab-dashboard.php:58 includes/admin/tab-logs.php:60
+#: includes/admin/tab-logs.php:89
+msgid "Failed"
+msgstr "Failed"
+
+#: includes/class-smtp-ajax.php:286
+msgid "Failed to delete logs."
+msgstr "Failed to delete logs."
+
+#: includes/class-smtp-ajax.php:197
+msgid "Failed to read file."
+msgstr "Failed to read file."
+
+#: includes/class-smtp-mailer.php:531
+msgid "Failed to send test email."
+msgstr "Failed to send test email."
+
+#: includes/class-smtp-ajax.php:192
+msgid "File must be outside WordPress directory."
+msgstr "File must be outside WordPress directory."
+
+#: includes/class-smtp-ajax.php:176
+msgid "File not found."
+msgstr "File not found."
+
+#: includes/admin/tab-dkim.php:202
+#, php-format
+msgid "File not found: %s"
+msgstr "File not found: %s"
+
+#: includes/class-smtp-ajax.php:177
+msgid "File not readable."
+msgstr "File not readable."
+
+#: includes/admin/tab-dkim.php:173
+msgid "File on server"
+msgstr "File on server"
+
+#: includes/admin/tab-dkim.php:194
+msgid "File Path"
+msgstr "File Path"
+
+#: includes/class-smtp-ajax.php:173
+msgid "File path is required."
+msgstr "File path is required."
+
+#: includes/admin/tab-dkim.php:200
+#, php-format
+msgid "File readable: %s"
+msgstr "File readable: %s"
+
+#: includes/class-smtp-helpers.php:115
+msgid "File too large. A DKIM private key should be less than 10 KB."
+msgstr "File too large. A DKIM private key should be less than 10 KB."
+
+#: includes/admin/tab-logs.php:91
+msgid "Filter"
+msgstr "Filter"
+
+#: includes/admin/tab-logs.php:85
+msgid "Filter by status"
+msgstr "Filter by status"
+
+#: includes/class-smtp-helpers.php:85
+msgid ""
+"For security, the DKIM key file should be stored outside the WordPress "
+"directory."
+msgstr ""
+"For security, the DKIM key file should be stored outside the WordPress "
+"directory."
+
+#: includes/admin/tab-mailer-oauth.php:250
+msgid ""
+"For service accounts: enable <strong>domain-wide delegation</strong> in "
+"Google Workspace Admin"
+msgstr ""
+"For service accounts: enable <strong>domain-wide delegation</strong> in "
+"Google Workspace Admin"
+
+#: includes/admin/tab-mailer.php:143 includes/admin/tab-smtp.php:130
+msgid "Force From"
+msgstr "Force From"
+
+#: includes/class-smtp-mailer.php:622 includes/admin/tab-dashboard.php:98
+msgid "From"
+msgstr "From"
+
+#: includes/admin/tab-mailer.php:128 includes/admin/tab-smtp.php:115
+msgid "From Address"
+msgstr "From Address"
+
+#: includes/admin/tab-logs.php:152
+msgid "From:"
+msgstr "From:"
+
+#: includes/admin/tab-dkim.php:76
+msgid ""
+"Generate a key pair automatically. You will then need to add the DNS record "
+"at your domain registrar."
+msgstr ""
+"Generate a key pair automatically. You will then need to add the DNS record "
+"at your domain registrar."
+
+#: includes/admin/tab-dkim.php:75 includes/admin/tab-dkim.php:81
+msgid "Generate DKIM Keys"
+msgstr "Generate DKIM Keys"
+
+#: includes/admin/tab-dkim.php:213
+msgid "Generate private key"
+msgstr "Generate private key"
+
+#: includes/class-smtp-mailer.php:581
+msgid ""
+"Generated by your WordPress SMTP plugin to verify authentication and "
+"delivery."
+msgstr ""
+"Generated by your WordPress SMTP plugin to verify authentication and "
+"delivery."
+
+#: includes/class-smtp-mailer.php:706
+msgid ""
+"Generated for diagnostics only. No marketing content, tracking pixels, or "
+"promotional links are included."
+msgstr ""
+"Generated for diagnostics only. No marketing content, tracking pixels, or "
+"promotional links are included."
+
+#: includes/admin/tab-mailer-oauth.php:234
+msgid ""
+"Go to <strong>Azure Portal → App registrations → New registration</strong>"
+msgstr ""
+"Go to <strong>Azure Portal → App registrations → New registration</strong>"
+
+#: includes/admin/tab-mailer-oauth.php:245
+msgid ""
+"Go to <strong>Google Cloud Console → APIs & Services → Credentials</strong>"
+msgstr ""
+"Go to <strong>Google Cloud Console → APIs & Services → Credentials</strong>"
+
+#: includes/admin/tab-mailer-oauth.php:194
+msgid "Google API Client Settings"
+msgstr "Google API Client Settings"
+
+#: includes/admin/tab-mailer-oauth.php:178
+msgid "Google Settings"
+msgstr "Google Settings"
+
+#: includes/admin/tab-mailer-oauth.php:217
+msgid ""
+"Google Workspace email to send on behalf of. Must be a Workspace account, "
+"not @gmail.com. Defaults to the SMTP address."
+msgstr ""
+"Google Workspace email to send on behalf of. Must be a Workspace account, "
+"not @gmail.com. Defaults to the SMTP address."
+
+#: includes/admin/tab-mailer-oauth.php:72
+msgid "Grant Type"
+msgstr "Grant Type"
+
+#: includes/class-smtp-mailer.php:589
+msgid "Hello,"
+msgstr "Hello,"
+
+#: includes/admin/tab-dashboard.php:96
+msgid "Host"
+msgstr "Host"
+
+#: includes/admin/tab-mailer-oauth.php:182
+msgid "Hosted Domain"
+msgstr "Hosted Domain"
+
+#: includes/admin/tab-dkim.php:210
+msgid "How to generate keys manually (OpenSSL)"
+msgstr "How to generate keys manually (OpenSSL)"
+
+#. Author URI of the plugin
+msgid "https://astralinternet.com"
+msgstr "https://astralinternet.com"
+
+#. URI of the plugin
+msgid "https://github.com/astralinternet/simple-smtp-dkim"
+msgstr "https://github.com/astralinternet/simple-smtp-dkim"
+
+#: includes/class-smtp-mailer.php:661
+#, php-format
+msgid ""
+"If this email landed in spam/junk, check SPF/DKIM/DMARC alignment for %s, "
+"and confirm that the \"From\" address matches your authorized sending "
+"identity."
+msgstr ""
+"If this email landed in spam/junk, check SPF/DKIM/DMARC alignment for %s, "
+"and confirm that the \"From\" address matches your authorized sending "
+"identity."
+
+#: includes/class-smtp-mailer.php:670
+#, php-format
+msgid "If you contact support, include the %s and the timestamp above."
+msgstr "If you contact support, include the %s and the timestamp above."
+
+#: includes/class-smtp-mailer.php:697
+msgid "If you did not request this test, you can safely ignore this email."
+msgstr "If you did not request this test, you can safely ignore this email."
+
+#: includes/class-smtp-mailer.php:600
+msgid ""
+"If you're reviewing this for troubleshooting, the details below can help "
+"support teams confirm the sending path, authentication method, and basic "
+"message integrity."
+msgstr ""
+"If you're reviewing this for troubleshooting, the details below can help "
+"support teams confirm the sending path, authentication method, and basic "
+"message integrity."
+
+#: includes/admin/tab-mailer-oauth.php:216
+msgid "Impersonate (send as)"
+msgstr "Impersonate (send as)"
+
+#: simple-smtp-dkim.php:202 includes/class-smtp-admin.php:123
+#: includes/class-smtp-admin.php:169 includes/class-smtp-ajax.php:47
+msgid "Insufficient permissions."
+msgstr "Insufficient permissions."
+
+#: includes/class-smtp-ajax.php:182
+msgid "Invalid file extension."
+msgstr "Invalid file extension."
+
+#: includes/class-smtp-helpers.php:65
+#, php-format
+msgid "Invalid file extension. Allowed: %s"
+msgstr "Invalid file extension. Allowed: %s"
+
+#: includes/class-smtp-ajax.php:298
+msgid "Invalid log ID."
+msgstr "Invalid log ID."
+
+#: simple-smtp-dkim.php:227
+msgid "Key already in wp-config.php. Database copy removed."
+msgstr "Key already in wp-config.php. Database copy removed."
+
+#: simple-smtp-dkim.php:231
+msgid "Key contains unexpected characters."
+msgstr "Key contains unexpected characters."
+
+#: includes/class-smtp-ajax.php:271
+msgid "Key generation failed: "
+msgstr "Key generation failed: "
+
+#: includes/class-smtp-validator.php:114
+msgid "Key is encrypted. Enter the passphrase above."
+msgstr "Key is encrypted. Enter the passphrase above."
+
+#: includes/admin/tab-advanced.php:74
+msgid "Key Location"
+msgstr "Key Location"
+
+#: simple-smtp-dkim.php:274
+msgid "Key moved to wp-config.php successfully."
+msgstr "Key moved to wp-config.php successfully."
+
+#: includes/admin/tab-dkim.php:156
+msgid "Key Passphrase"
+msgstr "Key Passphrase"
+
+#: includes/admin/tab-dkim.php:185
+msgid "Key stored (encrypted)."
+msgstr "Key stored (encrypted)."
+
+#: includes/class-smtp-validator.php:130
+msgid "Key too small. Use at least 1024 bits (2048 recommended)."
+msgstr "Key too small. Use at least 1024 bits (2048 recommended)."
+
+#: includes/class-smtp-validator.php:123
+#, php-format
+msgid "Key type: %s, Key size: %d bits"
+msgstr "Key type: %s, Key size: %d bits"
+
+#: includes/admin/tab-dkim.php:91
+msgid "Keys generated. Click \"View Saved DNS Record\" to see the value."
+msgstr "Keys generated. Click \"View Saved DNS Record\" to see the value."
+
+#: includes/admin/tab-logs.php:56
+msgid "Last 30 Days"
+msgstr "Last 30 Days"
+
+#: includes/admin/tab-dashboard.php:16
+msgid "Last test succeeded."
+msgstr "Last test succeeded."
+
+#: includes/class-smtp-ajax.php:301
+msgid "Log not found."
+msgstr "Log not found."
+
+#: includes/admin/tab-dashboard.php:85
+msgid "Logging is disabled."
+msgstr "Logging is disabled."
+
+#: includes/admin/tab-logs.php:176
+msgid "Logging is disabled. Enable it above to start tracking emails."
+msgstr "Logging is disabled. Enable it above to start tracking emails."
+
+#: includes/admin/tab-logs.php:24
+msgid "Logging Settings"
+msgstr "Logging Settings"
+
+#: includes/admin/save-handlers.php:211
+msgid "Logging settings saved."
+msgstr "Logging settings saved."
+
+#: includes/admin/tab-logs.php:71
+msgid ""
+"Logs contain personal data. Retention: %d days. Ensure your privacy policy "
+"covers this."
+msgstr ""
+"Logs contain personal data. Retention: %d days. Ensure your privacy policy "
+"covers this."
+
+#: includes/admin/tab-advanced.php:25
+msgid ""
+"Logs detailed SMTP communication to the PHP error log. Use only for "
+"troubleshooting — disable in production."
+msgstr ""
+"Logs detailed SMTP communication to the PHP error log. Use only for "
+"troubleshooting — disable in production."
+
+#: includes/class-smtp-admin.php:130
+msgid "Mailer"
+msgstr "Mailer"
+
+#: includes/admin/save-handlers.php:99
+msgid "Mailer settings saved."
+msgstr "Mailer settings saved."
+
+#: includes/admin/tab-mailer.php:50
+msgid "Mailer type"
+msgstr "Mailer type"
+
+#: includes/admin/tab-logs.php:44
+msgid ""
+"May include password resets, verification codes. Encrypted with AES-256-CBC."
+msgstr ""
+"May include password resets, verification codes. Encrypted with AES-256-CBC."
+
+#: includes/class-smtp-mailer.php:643 includes/class-smtp-mailer.php:671
+msgid "Message ID"
+msgstr "Message ID"
+
+#: includes/admin/tab-dkim.php:169
+msgid "Method"
+msgstr "Method"
+
+#: includes/admin/tab-mailer-oauth.php:162
+msgid "Microsoft Settings"
+msgstr "Microsoft Settings"
+
+#: simple-smtp-dkim.php:156
+msgid "Migrating..."
+msgstr "Migrating..."
+
+#: simple-smtp-dkim.php:139 simple-smtp-dkim.php:174 simple-smtp-dkim.php:180
+msgid "Move key to wp-config.php automatically"
+msgstr "Move key to wp-config.php automatically"
+
+#: includes/admin/tab-dkim.php:101 includes/admin/tab-mailer.php:138
+#: includes/admin/tab-smtp.php:125
+msgid "Name"
+msgstr "Name"
+
+#: simple-smtp-dkim.php:185
+msgid "Network error."
+msgstr "Network error."
+
+#: includes/class-smtp-mailer.php:739
+#, php-format
+msgid "No DNS TXT records found for %s"
+msgstr "No DNS TXT records found for %s"
+
+#: includes/class-smtp-mailer.php:729
+msgid "No domain to check"
+msgstr "No domain to check"
+
+#: includes/admin/tab-logs.php:170
+msgid "No email logs found."
+msgstr "No email logs found."
+
+#: includes/class-smtp-helpers.php:110
+msgid "No file uploaded."
+msgstr "No file uploaded."
+
+#: simple-smtp-dkim.php:208
+msgid "No key in database."
+msgstr "No key in database."
+
+#: includes/class-smtp-ajax.php:200
+msgid "No private key in database. Upload one first."
+msgstr "No private key in database. Upload one first."
+
+#: includes/class-smtp-ajax.php:65
+msgid ""
+"No saved password found. Please enter your password or save settings first."
+msgstr ""
+"No saved password found. Please enter your password or save settings first."
+
+#: includes/admin/tab-mailer-smtp.php:36 includes/admin/tab-smtp.php:65
+msgid "None"
+msgstr "None"
+
+#: includes/admin/tab-advanced.php:65
+msgid "Not available"
+msgstr "Not available"
+
+#: includes/admin/tab-logs.php:124
+msgid "Not Signed"
+msgstr "Not Signed"
+
+#: includes/admin/tab-dashboard.php:16
+msgid "Not yet tested."
+msgstr "Not yet tested."
+
+#: includes/admin/tab-dashboard.php:18
+msgid "Not yet verified."
+msgstr "Not yet verified."
+
+#: includes/class-smtp-mailer.php:656
+msgid "Notes:"
+msgstr "Notes:"
+
+#: includes/admin/tab-mailer.php:31
+msgid "OAuth2"
+msgstr "OAuth2"
+
+#: includes/admin/tab-mailer-oauth.php:239
+msgid "Obtain a Refresh Token using the OAuth2 authorization flow"
+msgstr "Obtain a Refresh Token using the OAuth2 authorization flow"
+
+#: includes/admin/tab-mailer-oauth.php:208
+msgid "Only for client_credentials grant. The service account email prefix."
+msgstr "Only for client_credentials grant. The service account email prefix."
+
+#: includes/admin/tab-advanced.php:60
+msgid "OpenSSL"
+msgstr "OpenSSL"
+
+#: includes/class-smtp-ajax.php:244
+msgid "OpenSSL unavailable."
+msgstr "OpenSSL unavailable."
+
+#: simple-smtp-dkim.php:144
+msgid "Or add it manually"
+msgstr "Or add it manually"
+
+#: includes/admin/tab-dkim.php:197
+msgid "Or upload:"
+msgstr "Or upload:"
+
+#: includes/admin/tab-mailer.php:144 includes/admin/tab-smtp.php:131
+msgid "Override the From address set by other plugins/themes."
+msgstr "Override the From address set by other plugins/themes."
+
+#: includes/admin/tab-dkim.php:158
+msgid "Passphrase (if key is encrypted)"
+msgstr "Passphrase (if key is encrypted)"
+
+#: includes/admin/tab-dkim.php:160
+msgid "Passphrase saved."
+msgstr "Passphrase saved."
+
+#: includes/admin/tab-mailer-smtp.php:66 includes/admin/tab-smtp.php:95
+msgid "Password"
+msgstr "Password"
+
+#: includes/admin/tab-mailer-oauth.php:151
+msgid "Paste your refresh token"
+msgstr "Paste your refresh token"
+
+#: includes/admin/tab-mailer-oauth.php:123
+msgid ""
+"PEM-encoded private key including -----BEGIN PRIVATE KEY----- and -----END "
+"PRIVATE KEY----- markers."
+msgstr ""
+"PEM-encoded private key including -----BEGIN PRIVATE KEY----- and -----END "
+"PRIVATE KEY----- markers."
+
+#: includes/admin/tab-advanced.php:41
+msgid ""
+"Permanently removes all plugin data (settings, logs, database tables) when "
+"you delete the plugin. Cannot be undone."
+msgstr ""
+"Permanently removes all plugin data (settings, logs, database tables) when "
+"you delete the plugin. Cannot be undone."
+
+#: includes/class-smtp-ajax.php:111
+msgid "Please wait at least 30 seconds between test emails."
+msgstr "Please wait at least 30 seconds between test emails."
+
+#: includes/class-smtp-mailer.php:647
+msgid "Plugin version"
+msgstr "Plugin version"
+
+#: includes/admin/tab-mailer-smtp.php:41 includes/admin/tab-smtp.php:70
+msgid "Port"
+msgstr "Port"
+
+#: includes/admin/tab-dashboard.php:97
+msgid "Port / Encryption"
+msgstr "Port / Encryption"
+
+#: includes/admin/tab-mailer-smtp.php:30 includes/admin/tab-smtp.php:59
+msgid "Port auto-adjusts: TLS→587, SSL→465, None→25"
+msgstr "Port auto-adjusts: TLS→587, SSL→465, None→25"
+
+#: includes/admin/tab-logs.php:44 includes/admin/tab-logs.php:70
+msgid "Privacy:"
+msgstr "Privacy:"
+
+#: includes/class-smtp-validator.php:145
+msgid "Private key appears valid (detailed check unavailable)."
+msgstr "Private key appears valid (detailed check unavailable)."
+
+#: includes/class-smtp-validator.php:94
+msgid "Private key is empty."
+msgstr "Private key is empty."
+
+#: includes/class-smtp-validator.php:102
+msgid "Private key is not in valid PEM format."
+msgstr "Private key is not in valid PEM format."
+
+#: includes/class-smtp-validator.php:116
+msgid "Private key is not valid or is encrypted."
+msgstr "Private key is not valid or is encrypted."
+
+#: includes/class-smtp-validator.php:137
+msgid "Private key is valid."
+msgstr "Private key is valid."
+
+#: includes/admin/tab-dkim.php:121
+msgid ""
+"Private key saved automatically. Add the DNS record above, then save and "
+"validate."
+msgstr ""
+"Private key saved automatically. Add the DNS record above, then save and "
+"validate."
+
+#: includes/admin/tab-dkim.php:167
+msgid "Private Key Storage"
+msgstr "Private Key Storage"
+
+#: includes/admin/tab-mailer-oauth.php:198
+msgid "Project ID"
+msgstr "Project ID"
+
+#: includes/admin/tab-mailer-oauth.php:41
+msgid "Provider"
+msgstr "Provider"
+
+#: includes/admin/tab-dashboard.php:59 includes/admin/tab-logs.php:61
+msgid "Rate"
+msgstr "Rate"
+
+#: includes/admin/tab-dashboard.php:65
+msgid "Recent Failures"
+msgstr "Recent Failures"
+
+#: includes/admin/tab-mailer-smtp.php:34 includes/admin/tab-smtp.php:63
+msgid "Recommended"
+msgstr "Recommended"
+
+#: includes/admin/tab-mailer-oauth.php:145
+#: includes/admin/tab-mailer-oauth.php:149
+msgid "Refresh Token"
+msgstr "Refresh Token"
+
+#: includes/class-smtp-mailer.php:677
+msgid "Regards,"
+msgstr "Regards,"
+
+#: includes/admin/tab-dkim.php:60 includes/admin/tab-dkim.php:65
+#: includes/admin/tab-mailer-oauth.php:41
+#: includes/admin/tab-mailer-oauth.php:55
+#: includes/admin/tab-mailer-oauth.php:102
+#: includes/admin/tab-mailer-oauth.php:110
+#: includes/admin/tab-mailer-oauth.php:122
+#: includes/admin/tab-mailer-oauth.php:135
+#: includes/admin/tab-mailer-oauth.php:149
+#: includes/admin/tab-mailer-oauth.php:166
+#: includes/admin/tab-mailer-smtp.php:21 includes/admin/tab-mailer-smtp.php:41
+#: includes/admin/tab-mailer-smtp.php:59 includes/admin/tab-mailer-smtp.php:66
+#: includes/admin/tab-smtp.php:50 includes/admin/tab-smtp.php:70
+#: includes/admin/tab-smtp.php:88 includes/admin/tab-smtp.php:95
+msgid "required"
+msgstr "required"
+
+#: includes/admin/tab-mailer-oauth.php:146
+msgid ""
+"Required for authorization_code grant. Obtained during the initial OAuth2 "
+"consent flow."
+msgstr ""
+"Required for authorization_code grant. Obtained during the initial OAuth2 "
+"consent flow."
+
+#: includes/admin/tab-logs.php:31
+msgid "Retention"
+msgstr "Retention"
+
+#: includes/admin/tab-mailer.php:175
+#, php-format
+msgid "Save %s Settings"
+msgstr "Save %s Settings"
+
+#: includes/admin/tab-advanced.php:87
+msgid "Save Advanced Settings"
+msgstr "Save Advanced Settings"
+
+#: includes/admin/tab-dkim.php:225
+msgid "Save DKIM Settings"
+msgstr "Save DKIM Settings"
+
+#: includes/admin/tab-logs.php:48
+msgid "Save Logging Settings"
+msgstr "Save Logging Settings"
+
+#: includes/admin/tab-smtp.php:161
+msgid "Save SMTP Settings"
+msgstr "Save SMTP Settings"
+
+#: includes/admin/tab-mailer-oauth.php:114
+#: includes/admin/tab-mailer-oauth.php:128
+#: includes/admin/tab-mailer-oauth.php:153
+msgid "Saved (encrypted)."
+msgstr "Saved (encrypted)."
+
+#: includes/admin/tab-dkim.php:158 includes/admin/tab-mailer-oauth.php:112
+#: includes/admin/tab-mailer-oauth.php:126
+#: includes/admin/tab-mailer-oauth.php:151
+#: includes/admin/tab-mailer-smtp.php:68 includes/admin/tab-smtp.php:97
+msgid "Saved — leave blank to keep"
+msgstr "Saved — leave blank to keep"
+
+#: includes/admin/tab-mailer-smtp.php:71 includes/admin/tab-smtp.php:100
+msgid "Saved."
+msgstr "Saved."
+
+#: includes/admin/tab-logs.php:83
+msgid "Search logs"
+msgstr "Search logs"
+
+#: includes/admin/tab-logs.php:84
+msgid "Search..."
+msgstr "Search..."
+
+#: includes/class-smtp-admin.php:172
+msgid "Security check failed."
+msgstr "Security check failed."
+
+#: includes/admin/tab-dkim.php:65
+msgid "Selector"
+msgstr "Selector"
+
+#: includes/class-smtp-ajax.php:243
+msgid "Selector is required."
+msgstr "Selector is required."
+
+#: includes/admin/tab-dashboard.php:16
+msgid "Send a successful test email"
+msgstr "Send a successful test email"
+
+#: includes/admin/tab-smtp.php:39
+msgid "Send emails via your SMTP server instead of PHP mail()."
+msgstr "Send emails via your SMTP server instead of PHP mail()."
+
+#: includes/admin/tab-mailer.php:162 includes/admin/tab-smtp.php:149
+msgid "Send Test Email"
+msgstr "Send Test Email"
+
+#: includes/class-smtp-admin.php:94
+msgid "Sending..."
+msgstr "Sending..."
+
+#: includes/admin/tab-dashboard.php:57 includes/admin/tab-logs.php:59
+msgid "Sent"
+msgstr "Sent"
+
+#: includes/admin/tab-mailer-smtp.php:18 includes/admin/tab-smtp.php:47
+msgid "Server Settings"
+msgstr "Server Settings"
+
+#: includes/admin/tab-mailer-oauth.php:207
+msgid "Service Account Name"
+msgstr "Service Account Name"
+
+#: includes/admin/tab-mailer-oauth.php:235
+#: includes/admin/tab-mailer-oauth.php:247
+msgid "Set redirect URI to your site URL"
+msgstr "Set redirect URI to your site URL"
+
+#: includes/class-smtp-admin.php:113
+msgid "Settings"
+msgstr "Settings"
+
+#: includes/class-smtp-admin.php:140
+msgid "Settings tabs"
+msgstr "Settings tabs"
+
+#: includes/admin/tab-mailer-oauth.php:229
+msgid "Setup Guide"
+msgstr "Setup Guide"
+
+#: includes/admin/tab-dashboard.php:27
+msgid "Setup Progress"
+msgstr "Setup Progress"
+
+#: includes/admin/tab-dashboard.php:28
+msgid "Setup progress"
+msgstr "Setup progress"
+
+#: includes/admin/tab-mailer-oauth.php:137
+msgid "SHA-1 thumbprint (hex)"
+msgstr "SHA-1 thumbprint (hex)"
+
+#: includes/admin/tab-mailer.php:168 includes/admin/tab-smtp.php:155
+msgid "Show Debug Info"
+msgstr "Show Debug Info"
+
+#: includes/admin/tab-dkim.php:42
+msgid ""
+"Sign outgoing emails with DKIM to improve deliverability. DKIM signing is "
+"only applied after DNS validation passes."
+msgstr ""
+"Sign outgoing emails with DKIM to improve deliverability. DKIM signing is "
+"only applied after DNS validation passes."
+
+#. Name of the plugin
+msgid "Simple SMTP & DKIM"
+msgstr "Simple SMTP & DKIM"
+
+#: simple-smtp-dkim.php:135
+msgid "Simple SMTP & DKIM — Security Recommendation:"
+msgstr "Simple SMTP & DKIM — Security Recommendation:"
+
+#: includes/class-smtp-mailer.php:614
+msgid "Site"
+msgstr "Site"
+
+#: includes/class-smtp-mailer.php:690
+#, php-format
+msgid "Site: %1$s • Environment: %2$s • Request ID: %3$s"
+msgstr "Site: %1$s • Environment: %2$s • Request ID: %3$s"
+
+#: includes/class-smtp-admin.php:48 includes/admin/tab-dashboard.php:95
+#: includes/admin/tab-mailer.php:30
+msgid "SMTP"
+msgstr "SMTP"
+
+#: includes/admin/tab-mailer-oauth.php:55
+msgid "SMTP / Envelope Address"
+msgstr "SMTP / Envelope Address"
+
+#: includes/class-smtp-mailer.php:507
+msgid "SMTP Config Manager - Test Email"
+msgstr "SMTP Config Manager - Test Email"
+
+#: includes/class-smtp-admin.php:47
+msgid "SMTP Configuration"
+msgstr "SMTP Configuration"
+
+#: includes/class-smtp-mailer.php:448
+msgid "SMTP connection successful!"
+msgstr "SMTP connection successful!"
+
+#: includes/class-smtp-mailer.php:630 includes/admin/tab-mailer-smtp.php:21
+#: includes/admin/tab-smtp.php:50
+msgid "SMTP Host"
+msgstr "SMTP Host"
+
+#: includes/class-smtp-ajax.php:140
+msgid "SMTP host is not configured."
+msgstr "SMTP host is not configured."
+
+#: includes/class-smtp-ajax.php:81 includes/class-smtp-ajax.php:133
+msgid "SMTP host is required."
+msgstr "SMTP host is required."
+
+#: includes/class-smtp-validator.php:33
+msgid "SMTP is currently disabled."
+msgstr "SMTP is currently disabled."
+
+#: includes/class-smtp-validator.php:50
+msgid "SMTP is enabled and configured. Send a test email to verify."
+msgstr "SMTP is enabled and configured. Send a test email to verify."
+
+#: includes/class-smtp-validator.php:47
+msgid "SMTP is enabled but authentication credentials are missing."
+msgstr "SMTP is enabled but authentication credentials are missing."
+
+#: includes/class-smtp-validator.php:43
+msgid "SMTP is enabled but not fully configured. Please enter your SMTP host."
+msgstr "SMTP is enabled but not fully configured. Please enter your SMTP host."
+
+#: includes/class-smtp-ajax.php:137
+msgid "SMTP is not enabled."
+msgstr "SMTP is not enabled."
+
+#: includes/class-smtp-mailer.php:564 includes/class-smtp-mailer.php:578
+msgid "SMTP Test Email"
+msgstr "SMTP Test Email"
+
+#: includes/class-smtp-mailer.php:666
+msgid ""
+"Some mail providers evaluate reputation and content together. A successful "
+"send confirms SMTP delivery, but inbox placement can still vary."
+msgstr ""
+"Some mail providers evaluate reputation and content together. A successful "
+"send confirms SMTP delivery, but inbox placement can still vary."
+
+#: includes/class-smtp-mailer.php:795
+#, php-format
+msgid ""
+"SPF record found for %s. The SMTP host may be authorized through "
+"include/a/mx mechanisms. Record: %s"
+msgstr ""
+"SPF record found for %s. The SMTP host may be authorized through "
+"include/a/mx mechanisms. Record: %s"
+
+#: includes/admin/tab-logs.php:104 includes/admin/tab-logs.php:119
+msgid "Status"
+msgstr "Status"
+
+#: includes/admin/tab-dkim.php:171
+msgid "Storage method"
+msgstr "Storage method"
+
+#: includes/admin/tab-logs.php:39
+msgid "Store Email Content"
+msgstr "Store Email Content"
+
+#: includes/admin/tab-logs.php:103 includes/admin/tab-logs.php:113
+msgid "Subject"
+msgstr "Subject"
+
+#: includes/admin/tab-logs.php:153
+msgid "Subject:"
+msgstr "Subject:"
+
+#: includes/admin/tab-logs.php:88
+msgid "Success"
+msgstr "Success"
+
+#: includes/class-smtp-admin.php:96
+msgid "Success!"
+msgstr "Success!"
+
+#: includes/admin/tab-mailer-oauth.php:166
+msgid "Tenant ID"
+msgstr "Tenant ID"
+
+#: includes/admin/tab-mailer.php:156 includes/admin/tab-smtp.php:143
+msgid "Test Connection"
+msgstr "Test Connection"
+
+#: includes/class-smtp-mailer.php:608
+msgid "Test details"
+msgstr "Test details"
+
+#: includes/class-smtp-mailer.php:595
+msgid "test email"
+msgstr "test email"
+
+#: includes/admin/tab-mailer.php:159 includes/admin/tab-mailer.php:160
+#: includes/admin/tab-smtp.php:146 includes/admin/tab-smtp.php:147
+msgid "Test email recipient"
+msgstr "Test email recipient"
+
+#: includes/class-smtp-mailer.php:527
+#, php-format
+msgid "Test email sent successfully to %s"
+msgstr "Test email sent successfully to %s"
+
+#: includes/admin/tab-mailer.php:153 includes/admin/tab-smtp.php:140
+msgid "Test Your Configuration"
+msgstr "Test Your Configuration"
+
+#: includes/class-smtp-admin.php:93
+msgid "Testing..."
+msgstr "Testing..."
+
+#: includes/admin/tab-mailer.php:80
+#, php-format
+msgid ""
+"The <strong>%s</strong> mailer is currently active. Enabling <strong>"
+"%s</strong> below will deactivate it."
+msgstr ""
+"The <strong>%s</strong> mailer is currently active. Enabling <strong>"
+"%s</strong> below will deactivate it."
+
+#: includes/admin/tab-mailer-oauth.php:56
+msgid ""
+"The email address used as the SMTP envelope sender (mailFrom / reverse-path)."
+" Usually your mailbox address."
+msgstr ""
+"The email address used as the SMTP envelope sender (mailFrom / reverse-path)."
+" Usually your mailbox address."
+
+#: includes/class-smtp-helpers.php:96
+msgid "The file does not appear to contain a valid PEM private key."
+msgstr "The file does not appear to contain a valid PEM private key."
+
+#: includes/class-smtp-helpers.php:120
+msgid "The uploaded file does not appear to be a valid PEM private key."
+msgstr "The uploaded file does not appear to be a valid PEM private key."
+
+#: includes/class-smtp-mailer.php:568
+msgid ""
+"This is a delivery and formatting test message generated by your WordPress "
+"SMTP plugin."
+msgstr ""
+"This is a delivery and formatting test message generated by your WordPress "
+"SMTP plugin."
+
+#: includes/class-smtp-mailer.php:686
+msgid ""
+"This is an automated test message generated by a WordPress SMTP "
+"configuration tool."
+msgstr ""
+"This is an automated test message generated by a WordPress SMTP "
+"configuration tool."
+
+#: includes/class-smtp-mailer.php:594
+#, php-format
+msgid ""
+"This message was sent as a %s to confirm that your SMTP configuration is "
+"working correctly. It's safe to ignore once you've verified delivery. No "
+"action is required unless you expected this email and did not receive it."
+msgstr ""
+"This message was sent as a %s to confirm that your SMTP configuration is "
+"working correctly. It's safe to ignore once you've verified delivery. No "
+"action is required unless you expected this email and did not receive it."
+
+#: includes/class-smtp-mailer.php:635
+#, php-format
+msgid "TLS version negotiated: %s"
+msgstr "TLS version negotiated: %s"
+
+#: includes/class-smtp-mailer.php:626 includes/admin/tab-dashboard.php:67
+#: includes/admin/tab-logs.php:102 includes/admin/tab-logs.php:112
+msgid "To"
+msgstr "To"
+
+#: includes/admin/tab-logs.php:151
+msgid "To:"
+msgstr "To:"
+
+#: includes/admin/tab-dashboard.php:56 includes/admin/tab-logs.php:58
+msgid "Total"
+msgstr "Total"
+
+#: includes/admin/tab-dkim.php:108
+msgid "Type"
+msgstr "Type"
+
+#: includes/admin/tab-mailer-oauth.php:237
+msgid ""
+"Under <strong>API permissions</strong>, add <code>SMTP.Send</code> "
+"(delegated) for authorization_code, or <code>Mail.Send</code> (application) "
+"for client_credentials"
+msgstr ""
+"Under <strong>API permissions</strong>, add <code>SMTP.Send</code> "
+"(delegated) for authorization_code, or <code>Mail.Send</code> (application) "
+"for client_credentials"
+
+#: includes/admin/tab-mailer-oauth.php:236
+msgid ""
+"Under <strong>Certificates & secrets</strong>, create a Client Secret or "
+"upload a Certificate"
+msgstr ""
+"Under <strong>Certificates & secrets</strong>, create a Client Secret or "
+"upload a Certificate"
+
+#: simple-smtp-dkim.php:178
+msgid "Unexpected error."
+msgstr "Unexpected error."
+
+#: includes/admin/tab-advanced.php:36
+msgid "Uninstall Behaviour"
+msgstr "Uninstall Behavior"
+
+#: includes/admin/tab-dkim.php:66
+msgid "Unique identifier for this key. Common values: \"default\", \"mail\"."
+msgstr "Unique identifier for this key. Common values: \"default\", \"mail\"."
+
+#: includes/admin/tab-dkim.php:181
+msgid "Upload Private Key"
+msgstr "Upload Private Key"
+
+#: includes/admin/tab-mailer-smtp.php:55 includes/admin/tab-smtp.php:84
+msgid "Use Authentication"
+msgstr "Use Authentication"
+
+#: includes/admin/tab-dkim.php:151
+msgid ""
+"Use this section if you prefer to manage DKIM keys manually (e.g., generated "
+"externally)."
+msgstr ""
+"Use this section if you prefer to manage DKIM keys manually (e.g., generated "
+"externally)."
+
+#: includes/admin/tab-mailer-smtp.php:59 includes/admin/tab-smtp.php:88
+msgid "Username"
+msgstr "Username"
+
+#: includes/class-smtp-ajax.php:84
+msgid "Username and password are required when authentication is enabled."
+msgstr "Username and password are required when authentication is enabled."
+
+#: includes/admin/tab-dkim.php:135
+msgid "Validate Configuration"
+msgstr "Validate Configuration"
+
+#: includes/admin/tab-dkim.php:138
+msgid "Validate DKIM"
+msgstr "Validate DKIM"
+
+#: includes/class-smtp-admin.php:95
+msgid "Validating..."
+msgstr "Validating..."
+
+#: includes/admin/tab-dkim.php:112
+msgid "Value"
+msgstr "Value"
+
+#: simple-smtp-dkim.php:268
+msgid "Verification failed. Original restored."
+msgstr "Verification failed. Original restored."
+
+#: includes/admin/tab-dashboard.php:18
+msgid "Verify DKIM DNS record"
+msgstr "Verify DKIM DNS record"
+
+#: includes/admin/tab-logs.php:130
+msgid "View"
+msgstr "View"
+
+#: includes/admin/tab-dashboard.php:78
+msgid "View all logs →"
+msgstr "View all logs →"
+
+#: includes/admin/tab-logs.php:129
+msgid "View email"
+msgstr "View email"
+
+#: includes/admin/tab-dkim.php:87
+msgid "View Saved DNS Record"
+msgstr "View Saved DNS Record"
+
+#: includes/admin/tab-advanced.php:46
+msgid "Warning:"
+msgstr "Warning:"
+
+#: includes/admin/tab-advanced.php:77
+msgid "wp-config.php (secure)"
+msgstr "wp-config.php (secure)"
+
+#: simple-smtp-dkim.php:216
+msgid "wp-config.php is not writable."
+msgstr "wp-config.php is not writable."
+
+#: simple-smtp-dkim.php:261
+msgid "Write failed. Original restored."
+msgstr "Write failed. Original restored."
+
+#: includes/admin/tab-mailer-oauth.php:90
+msgid "X.509 Certificate"
+msgstr "X.509 Certificate"
+
+#: includes/admin/tab-mailer-oauth.php:167
+msgid ""
+"Your Azure AD tenant GUID. Found in Azure Portal → Azure Active Directory → "
+"Properties."
+msgstr ""
+"Your Azure AD tenant GUID. Found in Azure Portal → Azure Active Directory → "
+"Properties."
+
+#: simple-smtp-dkim.php:136
+msgid ""
+"Your encryption key is currently stored in the database. For better security,"
+" it should be moved to your <code>wp-config.php</code> file."
+msgstr ""
+"Your encryption key is currently stored in the database. For better security,"
+" it should be moved to your <code>wp-config.php</code> file."
+
+#: includes/admin/tab-mailer-oauth.php:199
+msgid "Your Google Cloud project ID. Found in Google Cloud Console."
+msgstr "Your Google Cloud project ID. Found in Google Cloud Console."
+
+#: includes/admin/tab-mailer-oauth.php:183
+msgid ""
+"Your Google Workspace domain (e.g., yourdomain.com). Leave blank for "
+"personal @gmail.com accounts."
+msgstr ""
+"Your Google Workspace domain (e.g., yourdomain.com). Leave blank for "
+"personal @gmail.com accounts."
+
+#: includes/admin/tab-mailer-oauth.php:45
+msgid "— Select a provider —"
+msgstr "— Select a provider —"
+
+#: includes/class-smtp-validator.php:190
+#, php-format
+msgid "⚠️ DNS record found at %s but public key does NOT match."
+msgstr "⚠️ DNS record found at %s but public key does NOT match."
+
+#: includes/class-smtp-mailer.php:755
+#, php-format
+msgid ""
+"⚠️ No SPF record found for %s. Consider adding one to improve email "
+"deliverability."
+msgstr ""
+"⚠️ No SPF record found for %s. Consider adding one to improve email "
+"deliverability."
+
+#: includes/class-smtp-mailer.php:802
+#, php-format
+msgid ""
+"⚠️ SPF record found for %s but may not authorize your SMTP host (%s). Check "
+"your SPF record."
+msgstr ""
+"⚠️ SPF record found for %s but may not authorize your SMTP host (%s). Check "
+"your SPF record."
+
+#: includes/class-smtp-validator.php:189
+#, php-format
+msgid "✅ DNS record found and matches at: %s"
+msgstr "✅ DNS record found and matches at: %s"
+
+#: includes/class-smtp-mailer.php:788
+#, php-format
+msgid "✅ SPF record found for %s and appears to authorize your SMTP host."
+msgstr "✅ SPF record found for %s and appears to authorize your SMTP host."
