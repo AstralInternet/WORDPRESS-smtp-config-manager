@@ -1,10 +1,9 @@
 # Simple SMTP & DKIM
 
-**Contributors:** astralinternet  
-**Donate link:** https://astralinternet.com/  
+**Contributors:** @astralinternet, @neutrall, @sleyeur
 **Tags:** smtp, email, dkim, mail, phpmailer, spf, email-log, mailer  
 **Requires at least:** 5.0  
-**Tested up to:** 6.7  
+**Tested up to:** 6.9  
 **Stable tag:** 1.0.0  
 **Requires PHP:** 7.4  
 **License:** GPLv2 or later  
