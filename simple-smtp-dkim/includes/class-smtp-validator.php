@@ -95,6 +95,7 @@ class Simple_SMTP_DKIM_Validator {
         }
 
         if (get_option('simple_smtp_dkim_debug_mode', false)) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config: Validating DKIM key (' . strlen($private_key) . ' bytes)');
         }
 
@@ -108,6 +109,7 @@ class Simple_SMTP_DKIM_Validator {
             if ($res === false) {
                 $error = openssl_error_string();
                 if (get_option('simple_smtp_dkim_debug_mode', false)) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('SMTP Config: OpenSSL error — ' . $error);
                 }
                 if (stripos($error, 'bad decrypt') !== false || stripos($error, 'bad password') !== false) {
@@ -120,9 +122,11 @@ class Simple_SMTP_DKIM_Validator {
             if ($details) {
                 $type = isset($details['type']) ? ($details['type'] === OPENSSL_KEYTYPE_RSA ? 'RSA' : ($details['type'] === OPENSSL_KEYTYPE_DSA ? 'DSA' : 'Unknown')) : 'Unknown';
                 $bits = isset($details['bits']) ? $details['bits'] : 0;
-                $info = sprintf(__('Key type: %s, Key size: %d bits', 'simple-smtp-dkim'), $type, $bits);
+                /* translators: %1$s: key type (RSA/DSA), %2$d: key size in bits */
+                $info = sprintf(__('Key type: %1$s, Key size: %2$d bits', 'simple-smtp-dkim'), $type, $bits);
 
                 if (get_option('simple_smtp_dkim_debug_mode', false)) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('SMTP Config: Key valid — ' . $info);
                 }
 
@@ -157,6 +161,7 @@ class Simple_SMTP_DKIM_Validator {
         $records    = @dns_get_record($dns_record, DNS_TXT);
 
         if ($records === false || empty($records)) {
+            /* translators: %s: DNS record name */
             return array('found' => false, 'message' => sprintf(__('DKIM DNS record not found at: %s', 'simple-smtp-dkim'), $dns_record), 'record_name' => $dns_record);
         }
 
@@ -176,6 +181,7 @@ class Simple_SMTP_DKIM_Validator {
         }
 
         if (!$dkim_found) {
+            /* translators: %s: DNS record name */
             return array('found' => false, 'message' => sprintf(__('DNS record at %s does not appear to be a valid DKIM record.', 'simple-smtp-dkim'), $dns_record), 'record_name' => $dns_record);
         }
 
@@ -186,13 +192,16 @@ class Simple_SMTP_DKIM_Validator {
                 'found'          => true,
                 'matched'        => $matched,
                 'message'        => $matched
+                    /* translators: %s: DNS record name */
                     ? sprintf(__('✅ DNS record found and matches at: %s', 'simple-smtp-dkim'), $dns_record)
+                    /* translators: %s: DNS record name */
                     : sprintf(__('⚠️ DNS record found at %s but public key does NOT match.', 'simple-smtp-dkim'), $dns_record),
                 'record_name'    => $dns_record,
                 'record_content' => substr($record_content, 0, 100) . '...',
             );
         }
 
+        /* translators: %s: DNS record name */
         return array('found' => true, 'message' => sprintf(__('DKIM DNS record found at: %s', 'simple-smtp-dkim'), $dns_record), 'record_name' => $dns_record, 'record_content' => substr($record_content, 0, 100) . '...');
     }
 }

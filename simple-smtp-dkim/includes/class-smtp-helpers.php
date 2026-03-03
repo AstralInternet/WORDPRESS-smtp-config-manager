@@ -28,11 +28,13 @@ class Simple_SMTP_DKIM_Helpers {
     public static function update_option_no_autoload($option, $value) {
         global $wpdb;
 
+        // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
         $row = $wpdb->get_row(
             $wpdb->prepare("SELECT option_value FROM $wpdb->options WHERE option_name = %s LIMIT 1", $option)
         );
 
         if ($row !== null) {
+            // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
             $wpdb->update(
                 $wpdb->options,
                 array('option_value' => maybe_serialize($value)),
@@ -62,6 +64,7 @@ class Simple_SMTP_DKIM_Helpers {
         $allowed_extensions = array('pem', 'private', 'key');
         if (!in_array($ext, $allowed_extensions, true)) {
             return new WP_Error('invalid_extension', sprintf(
+                /* translators: %s: allowed file extensions */
                 __('Invalid file extension. Allowed: %s', 'simple-smtp-dkim'),
                 implode(', ', $allowed_extensions)
             ));

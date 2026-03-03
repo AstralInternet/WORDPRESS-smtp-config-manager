@@ -2,8 +2,13 @@
 /**
  * Form save handlers — one function per tab
  *
+ * Nonce verification is performed in Simple_SMTP_DKIM_Admin::save_settings()
+ * before this file is included. See class-smtp-admin.php line ~171.
+ *
  * @package Simple_SMTP_DKIM
  */
+
+// phpcs:disable WordPress.Security.NonceVerification.Missing -- Nonce verified in Simple_SMTP_DKIM_Admin::save_settings() before including this file.
 
 if (!defined('WPINC')) {
     die;
@@ -22,13 +27,13 @@ function simple_smtp_dkim_save_mailer() {
     $u = 'Simple_SMTP_DKIM_Helpers';
 
     // Which sub-tab was submitted?
-    $sub_tab = isset($_POST['mailer_sub']) ? sanitize_text_field($_POST['mailer_sub']) : 'smtp';
+    $sub_tab = isset($_POST['mailer_sub']) ? sanitize_text_field(wp_unslash($_POST['mailer_sub'])) : 'smtp';
     if (!in_array($sub_tab, array('smtp', 'oauth'), true)) {
         $sub_tab = 'smtp';
     }
 
     // Enable/disable: the toggle controls THIS sub-tab's mailer
-    $wants_enabled = isset($_POST['simple_smtp_dkim_enabled']) && $_POST['simple_smtp_dkim_enabled'];
+    $wants_enabled = isset($_POST['simple_smtp_dkim_enabled']) && sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_enabled']));
 
     if ($wants_enabled) {
         // Activate this mailer type (deactivates the other implicitly)
@@ -44,20 +49,20 @@ function simple_smtp_dkim_save_mailer() {
     }
 
     // Common settings (saved regardless of which sub-tab)
-    $u::update_option_no_autoload('simple_smtp_dkim_from_email', sanitize_email(wp_unslash($_POST['simple_smtp_dkim_from_email'])));
-    $u::update_option_no_autoload('simple_smtp_dkim_from_name',  sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_from_name'])));
+    $u::update_option_no_autoload('simple_smtp_dkim_from_email', isset($_POST['simple_smtp_dkim_from_email']) ? sanitize_email(wp_unslash($_POST['simple_smtp_dkim_from_email'])) : '');
+    $u::update_option_no_autoload('simple_smtp_dkim_from_name',  isset($_POST['simple_smtp_dkim_from_name']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_from_name'])) : '');
     $u::update_option_no_autoload('simple_smtp_dkim_force_from', isset($_POST['simple_smtp_dkim_force_from']) ? 1 : 0);
 
     // Save ONLY the active sub-tab's specific settings (never erase the other)
     if ($sub_tab === 'smtp') {
-        $u::update_option_no_autoload('simple_smtp_dkim_host',     sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_host'])));
-        $u::update_option_no_autoload('simple_smtp_dkim_port',     intval($_POST['simple_smtp_dkim_port']));
-        $u::update_option_no_autoload('simple_smtp_dkim_secure',   sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_secure'])));
+        $u::update_option_no_autoload('simple_smtp_dkim_host',     isset($_POST['simple_smtp_dkim_host']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_host'])) : '');
+        $u::update_option_no_autoload('simple_smtp_dkim_port',     isset($_POST['simple_smtp_dkim_port']) ? intval($_POST['simple_smtp_dkim_port']) : 587);
+        $u::update_option_no_autoload('simple_smtp_dkim_secure',   isset($_POST['simple_smtp_dkim_secure']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_secure'])) : 'tls');
         $u::update_option_no_autoload('simple_smtp_dkim_auth',     isset($_POST['simple_smtp_dkim_auth']) ? 1 : 0);
-        $u::update_option_no_autoload('simple_smtp_dkim_username', sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_username'])));
+        $u::update_option_no_autoload('simple_smtp_dkim_username', isset($_POST['simple_smtp_dkim_username']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_username'])) : '');
 
         if (!empty($_POST['simple_smtp_dkim_password'])) {
-            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_password', wp_unslash($_POST['simple_smtp_dkim_password']));
+            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_password', sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_password'])));
         }
     }
 
@@ -77,13 +82,13 @@ function simple_smtp_dkim_save_mailer() {
 
         // Encrypted fields: only update if non-empty
         if (!empty($_POST['simple_smtp_dkim_oauth_client_secret'])) {
-            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_oauth_client_secret', wp_unslash($_POST['simple_smtp_dkim_oauth_client_secret']));
+            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_oauth_client_secret', sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_oauth_client_secret'])));
         }
         if (!empty($_POST['simple_smtp_dkim_oauth_refresh_token'])) {
-            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_oauth_refresh_token', wp_unslash($_POST['simple_smtp_dkim_oauth_refresh_token']));
+            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_oauth_refresh_token', sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_oauth_refresh_token'])));
         }
         if (!empty($_POST['simple_smtp_dkim_oauth_cert_private_key'])) {
-            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_oauth_cert_private_key', wp_unslash($_POST['simple_smtp_dkim_oauth_cert_private_key']));
+            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_oauth_cert_private_key', sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_oauth_cert_private_key'])));
         }
 
         // Auto-set SMTP host/port based on provider
@@ -115,9 +120,9 @@ function simple_smtp_dkim_save_dkim() {
     $old_selector = get_option('simple_smtp_dkim_dkim_selector', '');
     $old_method   = get_option('simple_smtp_dkim_dkim_storage_method', 'database');
 
-    $new_domain   = sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_domain']));
-    $new_selector = sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_selector']));
-    $new_method   = sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_storage_method']));
+    $new_domain   = isset($_POST['simple_smtp_dkim_dkim_domain']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_domain'])) : '';
+    $new_selector = isset($_POST['simple_smtp_dkim_dkim_selector']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_selector'])) : '';
+    $new_method   = isset($_POST['simple_smtp_dkim_dkim_storage_method']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_storage_method'])) : 'database';
 
     // Track whether a key-affecting setting changed
     $dkim_changed = ($new_domain !== $old_domain || $new_selector !== $old_selector || $new_method !== $old_method);
@@ -127,13 +132,15 @@ function simple_smtp_dkim_save_dkim() {
     $u::update_option_no_autoload('simple_smtp_dkim_dkim_selector', $new_selector);
 
     if (!empty($_POST['simple_smtp_dkim_dkim_passphrase'])) {
-        Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_dkim_passphrase', wp_unslash($_POST['simple_smtp_dkim_dkim_passphrase']));
+        Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_dkim_passphrase', sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_passphrase'])));
     }
 
     $u::update_option_no_autoload('simple_smtp_dkim_dkim_storage_method', $new_method);
 
     // Database upload
+    // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Validated by validate_dkim_upload()
     if ($new_method === 'database' && isset($_FILES['simple_smtp_dkim_dkim_upload']) && !empty($_FILES['simple_smtp_dkim_dkim_upload']['tmp_name'])) {
+        // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
         $content = Simple_SMTP_DKIM_Helpers::validate_dkim_upload($_FILES['simple_smtp_dkim_dkim_upload']);
         if (is_wp_error($content)) {
             add_settings_error('simple_smtp_dkim_messages', 'upload', $content->get_error_message(), 'error');
@@ -146,6 +153,7 @@ function simple_smtp_dkim_save_dkim() {
     // File upload or path
     if ($new_method === 'file') {
         if (isset($_FILES['simple_smtp_dkim_dkim_file_upload']) && !empty($_FILES['simple_smtp_dkim_dkim_file_upload']['tmp_name'])) {
+            // phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             $content = Simple_SMTP_DKIM_Helpers::validate_dkim_upload($_FILES['simple_smtp_dkim_dkim_file_upload']);
             if (is_wp_error($content)) {
                 add_settings_error('simple_smtp_dkim_messages', 'upload', $content->get_error_message(), 'error');
@@ -153,13 +161,15 @@ function simple_smtp_dkim_save_dkim() {
             }
             $dir  = SIMPLE_SMTP_DKIM_UPLOAD_DIR;
             $dest = $dir . 'dkim_' . time() . '.private';
+            // phpcs:ignore Generic.PHP.ForbiddenFunctions.Found, WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
             if (move_uploaded_file($_FILES['simple_smtp_dkim_dkim_file_upload']['tmp_name'], $dest)) {
+                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_chmod
                 chmod($dest, 0600);
                 $u::update_option_no_autoload('simple_smtp_dkim_dkim_file_path', $dest);
                 $dkim_changed = true; // New key file uploaded
             }
         } else {
-            $raw = sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_file_path']));
+            $raw = isset($_POST['simple_smtp_dkim_dkim_file_path']) ? sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_dkim_file_path'])) : '';
             if (!empty($raw)) {
                 $old_path  = get_option('simple_smtp_dkim_dkim_file_path', '');
                 $validated = Simple_SMTP_DKIM_Helpers::validate_dkim_file_path($raw);
@@ -196,7 +206,7 @@ function simple_smtp_dkim_save_logging() {
     $now = isset($_POST['simple_smtp_dkim_logging_enabled']) ? 1 : 0;
 
     $u::update_option_no_autoload('simple_smtp_dkim_logging_enabled',   $now);
-    $u::update_option_no_autoload('simple_smtp_dkim_log_retention_days', intval($_POST['simple_smtp_dkim_log_retention_days']));
+    $u::update_option_no_autoload('simple_smtp_dkim_log_retention_days', isset($_POST['simple_smtp_dkim_log_retention_days']) ? intval($_POST['simple_smtp_dkim_log_retention_days']) : 30);
     $u::update_option_no_autoload('simple_smtp_dkim_log_email_body',    isset($_POST['simple_smtp_dkim_log_email_body']) ? 1 : 0);
 
     if ($now && !$was) {

@@ -120,10 +120,11 @@ class Simple_SMTP_DKIM_Admin {
 
     public static function render_settings_page() {
         if (!current_user_can('manage_options')) {
-            wp_die(__('Insufficient permissions.', 'simple-smtp-dkim'));
+            wp_die(esc_html(__('Insufficient permissions.', 'simple-smtp-dkim')));
         }
 
-        $active_tab = isset($_GET['tab']) ? sanitize_text_field($_GET['tab']) : 'dashboard';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended
+        $active_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : 'dashboard';
 
         $tabs = array(
             'dashboard' => __('Dashboard', 'simple-smtp-dkim'),
@@ -166,15 +167,15 @@ class Simple_SMTP_DKIM_Admin {
 
     public static function save_settings() {
         if (!current_user_can('manage_options')) {
-            wp_die(__('Insufficient permissions.', 'simple-smtp-dkim'));
+            wp_die(esc_html(__('Insufficient permissions.', 'simple-smtp-dkim')));
         }
-        if (!isset($_POST['simple_smtp_dkim_nonce']) || !wp_verify_nonce($_POST['simple_smtp_dkim_nonce'], 'simple_smtp_dkim_save_settings')) {
-            wp_die(__('Security check failed.', 'simple-smtp-dkim'));
+        if (!isset($_POST['simple_smtp_dkim_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_nonce'])), 'simple_smtp_dkim_save_settings')) {
+            wp_die(esc_html(__('Security check failed.', 'simple-smtp-dkim')));
         }
 
         require_once SIMPLE_SMTP_DKIM_PATH . 'includes/admin/save-handlers.php';
 
-        $tab = isset($_POST['tab']) ? sanitize_text_field($_POST['tab']) : 'smtp';
+        $tab = isset($_POST['tab']) ? sanitize_text_field(wp_unslash($_POST['tab'])) : 'smtp';
 
         switch ($tab) {
             case 'mailer':   simple_smtp_dkim_save_mailer(); break;
@@ -185,9 +186,9 @@ class Simple_SMTP_DKIM_Admin {
 
         $redirect_args = array('page' => 'simple-smtp-dkim', 'tab' => $tab, 'updated' => 'true');
         if ($tab === 'mailer' && isset($_POST['mailer_sub'])) {
-            $redirect_args['mailer'] = sanitize_text_field($_POST['mailer_sub']);
+            $redirect_args['mailer'] = sanitize_text_field(wp_unslash($_POST['mailer_sub']));
         }
-        wp_redirect(add_query_arg($redirect_args, admin_url('options-general.php')));
+        wp_safe_redirect(add_query_arg($redirect_args, admin_url('options-general.php')));
         exit;
     }
 }

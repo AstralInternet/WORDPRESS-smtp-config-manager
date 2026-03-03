@@ -1,6 +1,6 @@
 === Simple SMTP & DKIM ===
 Contributors: @astralinternet, @neutrall, @sleyeur
-Tags: smtp, email, dkim, mail, phpmailer, spf, email-log, mailer
+Tags: smtp, email, dkim, mail, mailer
 Requires at least: 5.0
 Tested up to: 6.9
 Stable tag: 1.0.0

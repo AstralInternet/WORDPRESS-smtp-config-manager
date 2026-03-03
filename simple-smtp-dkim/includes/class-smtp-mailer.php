@@ -95,6 +95,7 @@ class Simple_SMTP_DKIM_Mailer {
             if (get_option('simple_smtp_dkim_debug_mode', false)) {
                 $phpmailer->SMTPDebug = 2;
                 $phpmailer->Debugoutput = function($str, $level) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log("SMTP Debug [$level]: $str");
                 };
             }
@@ -128,6 +129,7 @@ class Simple_SMTP_DKIM_Mailer {
             $phpmailer->CharSet = 'UTF-8';
             
         } catch (Exception $e) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: PHPMailer configuration error - ' . $e->getMessage());
         }
     }
@@ -147,6 +149,7 @@ class Simple_SMTP_DKIM_Mailer {
             
             // Validate required fields
             if (empty($dkim_domain) || empty($dkim_selector)) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                 error_log('SMTP Config Manager: DKIM domain or selector not configured');
                 return;
             }
@@ -159,6 +162,7 @@ class Simple_SMTP_DKIM_Mailer {
                 $file_path = get_option('simple_smtp_dkim_dkim_file_path', '');
                 
                 if (empty($file_path)) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('SMTP Config Manager: DKIM private key file path not configured');
                     return;
                 }
@@ -166,6 +170,7 @@ class Simple_SMTP_DKIM_Mailer {
                 // Resolve real path to prevent path traversal
                 $real_path = realpath($file_path);
                 if ($real_path === false || !is_readable($real_path)) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('SMTP Config Manager: DKIM private key file not found or not readable');
                     return;
                 }
@@ -173,6 +178,7 @@ class Simple_SMTP_DKIM_Mailer {
                 // Validate file extension
                 $ext = strtolower(pathinfo($real_path, PATHINFO_EXTENSION));
                 if (!in_array($ext, array('pem', 'private', 'key'), true)) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('SMTP Config Manager: DKIM private key file has invalid extension');
                     return;
                 }
@@ -180,6 +186,7 @@ class Simple_SMTP_DKIM_Mailer {
                 $private_key = file_get_contents($real_path);
                 
                 if ($private_key === false) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('SMTP Config Manager: Failed to read DKIM private key file');
                     return;
                 }
@@ -189,6 +196,7 @@ class Simple_SMTP_DKIM_Mailer {
                 $private_key = Simple_SMTP_DKIM_Encryption::get_decrypted_option('simple_smtp_dkim_dkim_private_key', '');
                 
                 if (empty($private_key)) {
+                    // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                     error_log('SMTP Config Manager: DKIM private key not found in database');
                     return;
                 }
@@ -205,6 +213,7 @@ class Simple_SMTP_DKIM_Mailer {
             // $phpmailer->DKIM_copyHeaderFields = false;
             
         } catch (Exception $e) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: DKIM configuration error - ' . $e->getMessage());
         }
     }
@@ -303,7 +312,7 @@ class Simple_SMTP_DKIM_Mailer {
             return $s['email'];
         }
         
-        if (empty($from_email) || $from_email === 'wordpress@' . $_SERVER['SERVER_NAME']) {
+        if (empty($from_email) || $from_email === 'wordpress@' . (isset($_SERVER['SERVER_NAME']) ? sanitize_text_field(wp_unslash($_SERVER['SERVER_NAME'])) : 'localhost')) {
             if (!empty($s['email'])) {
                 return $s['email'];
             }
@@ -492,7 +501,7 @@ class Simple_SMTP_DKIM_Mailer {
         $dkim_enabled = get_option('simple_smtp_dkim_dkim_enabled', false);
         
         $utc_timestamp = gmdate('Y-m-d H:i:s') . ' UTC';
-        $message_id = '<' . uniqid('smtp-test-', true) . '@' . parse_url($site_url, PHP_URL_HOST) . '>';
+        $message_id = '<' . uniqid('smtp-test-', true) . '@' . wp_parse_url($site_url, PHP_URL_HOST) . '>';
         $plugin_version = SIMPLE_SMTP_DKIM_VERSION;
         $from_domain = substr(strrchr($from_email, "@"), 1);
         $environment = defined('WP_ENV') ? WP_ENV : (WP_DEBUG ? 'development' : 'production');
@@ -524,6 +533,7 @@ class Simple_SMTP_DKIM_Mailer {
         if ($result) {
             return array(
                 'success' => true,
+                /* translators: %s: recipient email address */
                 'message' => sprintf(__('Test email sent successfully to %s', 'simple-smtp-dkim'), $to_email)
             );
         } else {
@@ -591,6 +601,7 @@ class Simple_SMTP_DKIM_Mailer {
 
               <div style="font-size:14px;line-height:22px;margin:0 0 14px;">
                 ' . sprintf(
+                    /* translators: %s: content type (HTML/text) */
                     esc_html__('This message was sent as a %s to confirm that your SMTP configuration is working correctly. It\'s safe to ignore once you\'ve verified delivery. No action is required unless you expected this email and did not receive it.', 'simple-smtp-dkim'),
                     '<strong>' . esc_html__('test email', 'simple-smtp-dkim') . '</strong>'
                 ) . '
@@ -632,7 +643,9 @@ class Simple_SMTP_DKIM_Mailer {
                       </tr>
                       <tr>
                         <td style="padding:6px 0;color:#5b6675;">' . esc_html__('Encryption', 'simple-smtp-dkim') . '</td>
-                        <td style="padding:6px 0;">' . esc_html($encryption) . ' (' . sprintf(esc_html__('TLS version negotiated: %s', 'simple-smtp-dkim'), esc_html($tls_version)) . ')</td>
+                        <td style="padding:6px 0;">' . esc_html($encryption) . ' (' . sprintf(
+                            /* translators: %s: TLS version */
+                            esc_html__('TLS version negotiated: %s', 'simple-smtp-dkim'), esc_html($tls_version)) . ')</td>
                       </tr>
                       <tr>
                         <td style="padding:6px 0;color:#5b6675;">' . esc_html__('Auth method', 'simple-smtp-dkim') . '</td>
@@ -658,6 +671,7 @@ class Simple_SMTP_DKIM_Mailer {
               <ul style="margin:0 0 18px;padding-left:20px;font-size:14px;line-height:22px;color:#1b1f24;">
                 <li style="margin-bottom:8px;">
                   ' . sprintf(
+                      /* translators: %s: domain name */
                       esc_html__('If this email landed in spam/junk, check SPF/DKIM/DMARC alignment for %s, and confirm that the "From" address matches your authorized sending identity.', 'simple-smtp-dkim'),
                       '<strong>' . esc_html($from_domain) . '</strong>'
                   ) . '
@@ -667,6 +681,7 @@ class Simple_SMTP_DKIM_Mailer {
                 </li>
                 <li>
                   ' . sprintf(
+                      /* translators: %s: message ID */
                       esc_html__('If you contact support, include the %s and the timestamp above.', 'simple-smtp-dkim'),
                       '<strong>' . esc_html__('Message ID', 'simple-smtp-dkim') . '</strong>'
                   ) . '
@@ -687,6 +702,7 @@ class Simple_SMTP_DKIM_Mailer {
               </div>
               <div style="font-size:12px;line-height:18px;margin:0;">
                 ' . sprintf(
+                    /* translators: %1$s: site URL, %2$s: environment name, %3$s: request ID */
                     esc_html__('Site: %1$s • Environment: %2$s • Request ID: %3$s', 'simple-smtp-dkim'),
                     esc_html($site_url),
                     esc_html($environment),
@@ -736,6 +752,7 @@ class Simple_SMTP_DKIM_Mailer {
         if ($records === false || empty($records)) {
             return array(
                 'found' => false,
+                /* translators: %s: domain name */
                 'message' => sprintf(__('No DNS TXT records found for %s', 'simple-smtp-dkim'), $domain)
             );
         }
@@ -752,6 +769,7 @@ class Simple_SMTP_DKIM_Mailer {
         if (empty($spf_record)) {
             return array(
                 'found' => false,
+                /* translators: %s: domain name */
                 'message' => sprintf(__('⚠️ No SPF record found for %s. Consider adding one to improve email deliverability.', 'simple-smtp-dkim'), $domain)
             );
         }
@@ -785,6 +803,7 @@ class Simple_SMTP_DKIM_Mailer {
             return array(
                 'found' => true,
                 'authorized' => true,
+                /* translators: %s: domain name */
                 'message' => sprintf(__('✅ SPF record found for %s and appears to authorize your SMTP host.', 'simple-smtp-dkim'), $domain),
                 'record' => substr($spf_record, 0, 200)
             );
@@ -792,14 +811,16 @@ class Simple_SMTP_DKIM_Mailer {
             return array(
                 'found' => true,
                 'authorized' => 'maybe',
-                'message' => sprintf(__('SPF record found for %s. The SMTP host may be authorized through include/a/mx mechanisms. Record: %s', 'simple-smtp-dkim'), $domain, substr($spf_record, 0, 100) . '...'),
+                /* translators: %1$s: domain name, %2$s: SPF record content */
+                'message' => sprintf(__('SPF record found for %1$s. The SMTP host may be authorized through include/a/mx mechanisms. Record: %2$s', 'simple-smtp-dkim'), $domain, substr($spf_record, 0, 100) . '...'),
                 'record' => substr($spf_record, 0, 200)
             );
         } else {
             return array(
                 'found' => true,
                 'authorized' => false,
-                'message' => sprintf(__('⚠️ SPF record found for %s but may not authorize your SMTP host (%s). Check your SPF record.', 'simple-smtp-dkim'), $domain, $smtp_host),
+                /* translators: %1$s: domain name, %2$s: SMTP host */
+                'message' => sprintf(__('⚠️ SPF record found for %1$s but may not authorize your SMTP host (%2$s). Check your SPF record.', 'simple-smtp-dkim'), $domain, $smtp_host),
                 'record' => substr($spf_record, 0, 200)
             );
         }

@@ -1,4 +1,5 @@
 <?php
+// phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedVariableFound -- Template variables in included file scope.
 /**
  * Tab partial: Mailer (multi-transport wrapper)
  *
@@ -17,7 +18,8 @@ $from_name   = get_option('simple_smtp_dkim_from_name', get_option('blogname'));
 $force_from  = get_option('simple_smtp_dkim_force_from', false);
 $status      = Simple_SMTP_DKIM_Validator::get_connection_status();
 
-$sub_tab = isset($_GET['mailer']) ? sanitize_text_field($_GET['mailer']) : $mailer_type;
+// phpcs:ignore WordPress.Security.NonceVerification.Recommended
+$sub_tab = isset($_GET['mailer']) ? sanitize_text_field(wp_unslash($_GET['mailer'])) : $mailer_type;
 if (!in_array($sub_tab, array('smtp', 'oauth'), true)) {
     $sub_tab = 'smtp';
 }
@@ -76,11 +78,14 @@ $mailer_tabs = array(
         <div class="smtp-notice-banner smtp-notice-warning" style="margin-bottom:20px;">
             <span class="dashicons dashicons-info" aria-hidden="true"></span>
             <div>
-                <?php printf(
-                    __('The <strong>%s</strong> mailer is currently active. Enabling <strong>%s</strong> below will deactivate it.', 'simple-smtp-dkim'),
+                
+                <?php
+                echo wp_kses_post(sprintf(
+                    /* translators: %1$s: current mailer type, %2$s: new mailer type */
+                    __('The <strong>%1$s</strong> mailer is currently active. Enabling <strong>%2$s</strong> below will deactivate it.', 'simple-smtp-dkim'),
                     esc_html($type_labels[$mailer_type]),
                     esc_html($type_labels[$sub_tab])
-                ); ?>
+                )); ?>
             </div>
         </div>
     <?php endif; ?>
@@ -99,13 +104,16 @@ $mailer_tabs = array(
 
         <!-- Enable THIS Mailer -->
         <div class="simple-smtp-dkim-card">
-            <h2><?php printf(__('Enable %s Mailer', 'simple-smtp-dkim'), esc_html($type_labels[$sub_tab])); ?></h2>
+            <?php /* translators: %s: mailer type name */ ?>
+            <h2><?php echo esc_html(sprintf(__('Enable %s Mailer', 'simple-smtp-dkim'), $type_labels[$sub_tab])); ?></h2>
             <table class="form-table"><tr>
                 <th scope="row">
                     <label for="simple_smtp_dkim_enabled">
-                        <?php printf(__('Enable %s Mailer', 'simple-smtp-dkim'), esc_html($type_labels[$sub_tab])); ?>
+            <?php /* translators: %s: mailer type name */ ?>
+                        <?php echo esc_html(sprintf(__('Enable %s Mailer', 'simple-smtp-dkim'), $type_labels[$sub_tab])); ?>
                     </label>
                     <?php Simple_SMTP_DKIM_Helpers::render_info_icon(
+                        /* translators: %s: mailer type name */
                         sprintf(__('Activate the %s mailer. Only one mailer type can be active at a time.', 'simple-smtp-dkim'), $type_labels[$sub_tab])
                     ); ?>
                 </th>
@@ -125,22 +133,22 @@ $mailer_tabs = array(
 
         <!-- From Address (common to all mailer types) -->
         <div class="simple-smtp-dkim-card">
-            <h2><?php _e('From Address', 'simple-smtp-dkim'); ?></h2>
+            <h2><?php esc_html_e('From Address', 'simple-smtp-dkim'); ?></h2>
             <table class="form-table">
                 <tr>
-                    <th scope="row"><label for="simple_smtp_dkim_from_email"><?php _e('Email', 'simple-smtp-dkim'); ?></label></th>
+                    <th scope="row"><label for="simple_smtp_dkim_from_email"><?php esc_html_e('Email', 'simple-smtp-dkim'); ?></label></th>
                     <td>
                         <input type="email" name="simple_smtp_dkim_from_email" id="simple_smtp_dkim_from_email" value="<?php echo esc_attr($from_email); ?>" class="regular-text" data-validate="email" aria-describedby="from-email-feedback">
                         <span class="smtp-field-feedback" id="from-email-feedback" aria-live="polite"></span>
                     </td>
                 </tr>
                 <tr>
-                    <th scope="row"><label for="simple_smtp_dkim_from_name"><?php _e('Name', 'simple-smtp-dkim'); ?></label></th>
+                    <th scope="row"><label for="simple_smtp_dkim_from_name"><?php esc_html_e('Name', 'simple-smtp-dkim'); ?></label></th>
                     <td><input type="text" name="simple_smtp_dkim_from_name" id="simple_smtp_dkim_from_name" value="<?php echo esc_attr($from_name); ?>" class="regular-text"></td>
                 </tr>
                 <tr>
                     <th scope="row">
-                        <label for="simple_smtp_dkim_force_from"><?php _e('Force From', 'simple-smtp-dkim'); ?></label>
+                        <label for="simple_smtp_dkim_force_from"><?php esc_html_e('Force From', 'simple-smtp-dkim'); ?></label>
                         <?php Simple_SMTP_DKIM_Helpers::render_info_icon(__('Override the From address set by other plugins/themes.', 'simple-smtp-dkim')); ?>
                     </th>
                     <td><?php Simple_SMTP_DKIM_Helpers::render_toggle('simple_smtp_dkim_force_from', 'simple_smtp_dkim_force_from', $force_from); ?></td>
@@ -150,29 +158,30 @@ $mailer_tabs = array(
 
         <!-- Test Area (common to all mailer types) -->
         <div class="simple-smtp-dkim-card">
-            <h2><?php _e('Test Your Configuration', 'simple-smtp-dkim'); ?></h2>
+            <h2><?php esc_html_e('Test Your Configuration', 'simple-smtp-dkim'); ?></h2>
             <div class="smtp-test-row">
                 <button type="button" id="smtp-test-connection" class="button button-secondary">
-                    <span class="dashicons dashicons-update-alt" aria-hidden="true"></span> <?php _e('Test Connection', 'simple-smtp-dkim'); ?>
+                    <span class="dashicons dashicons-update-alt" aria-hidden="true"></span> <?php esc_html_e('Test Connection', 'simple-smtp-dkim'); ?>
                 </button>
                 <div class="smtp-test-email-inline">
-                    <label for="smtp_test_email_to" class="screen-reader-text"><?php _e('Test email recipient', 'simple-smtp-dkim'); ?></label>
+                    <label for="smtp_test_email_to" class="screen-reader-text"><?php esc_html_e('Test email recipient', 'simple-smtp-dkim'); ?></label>
                     <input type="email" id="smtp_test_email_to" class="regular-text" value="<?php echo esc_attr(get_option('admin_email')); ?>" placeholder="email@example.com" aria-label="<?php esc_attr_e('Test email recipient', 'simple-smtp-dkim'); ?>">
                     <button type="button" id="smtp-send-test-email" class="button button-primary">
-                        <span class="dashicons dashicons-email-alt" aria-hidden="true"></span> <?php _e('Send Test Email', 'simple-smtp-dkim'); ?>
+                        <span class="dashicons dashicons-email-alt" aria-hidden="true"></span> <?php esc_html_e('Send Test Email', 'simple-smtp-dkim'); ?>
                     </button>
                 </div>
             </div>
             <div id="smtp-test-result" class="smtp-test-result" style="display:none;" role="alert" aria-live="assertive"></div>
             <div id="smtp-test-debug" class="smtp-test-debug" style="display:none;">
-                <button type="button" class="smtp-debug-toggle" aria-expanded="false"><?php _e('Show Debug Info', 'simple-smtp-dkim'); ?></button>
+                <button type="button" class="smtp-debug-toggle" aria-expanded="false"><?php esc_html_e('Show Debug Info', 'simple-smtp-dkim'); ?></button>
                 <pre class="smtp-debug-content" role="log"></pre>
             </div>
         </div>
 
         <p class="submit">
             <button type="submit" class="button button-primary button-large">
-                <?php printf(__('Save %s Settings', 'simple-smtp-dkim'), esc_html($type_labels[$sub_tab])); ?>
+                <?php /* translators: %s: mailer type name */ ?>
+                <?php echo esc_html(sprintf(__('Save %s Settings', 'simple-smtp-dkim'), $type_labels[$sub_tab])); ?>
             </button>
         </p>
     </form>

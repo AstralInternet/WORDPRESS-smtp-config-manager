@@ -23,39 +23,41 @@ if (!get_option('simple_smtp_dkim_delete_on_uninstall', false)) {
 global $wpdb;
 
 // 1. Remove all plugin options.
-$options = $wpdb->get_col(
+// phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching
+$simple_smtp_dkim_options = $wpdb->get_col(
     $wpdb->prepare(
         "SELECT option_name FROM {$wpdb->options} WHERE option_name LIKE %s",
         'simple_smtp_dkim_%'
     )
 );
 
-foreach ($options as $option) {
-    delete_option($option);
+foreach ($simple_smtp_dkim_options as $simple_smtp_dkim_option) {
+    delete_option($simple_smtp_dkim_option);
 }
 
 // 2. Drop the email log table.
-$table_name = $wpdb->prefix . 'simple_smtp_dkim_logs';
-$wpdb->query("DROP TABLE IF EXISTS {$table_name}"); // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+$simple_smtp_dkim_table = $wpdb->prefix . 'simple_smtp_dkim_logs';
+$wpdb->query("DROP TABLE IF EXISTS {$simple_smtp_dkim_table}"); // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery, WordPress.DB.DirectDatabaseQuery.NoCaching, WordPress.DB.DirectDatabaseQuery.SchemaChange, WordPress.DB.PreparedSQL.InterpolatedNotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
 
 // 3. Remove uploaded DKIM key files.
-$upload_dir = wp_upload_dir();
-$dkim_dir   = $upload_dir['basedir'] . '/simple-smtp-dkim/';
+$simple_smtp_dkim_upload_dir = wp_upload_dir();
+$simple_smtp_dkim_dir   = $simple_smtp_dkim_upload_dir['basedir'] . '/simple-smtp-dkim/';
 
-if (is_dir($dkim_dir)) {
-    $files = glob($dkim_dir . '*');
-    if ($files) {
-        foreach ($files as $file) {
-            if (is_file($file)) {
-                @unlink($file);
+if (is_dir($simple_smtp_dkim_dir)) {
+    $simple_smtp_dkim_files = glob($simple_smtp_dkim_dir . '*');
+    if ($simple_smtp_dkim_files) {
+        foreach ($simple_smtp_dkim_files as $simple_smtp_dkim_file) {
+            if (is_file($simple_smtp_dkim_file)) {
+                wp_delete_file($simple_smtp_dkim_file);
             }
         }
     }
-    @rmdir($dkim_dir);
+// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_rmdir
+    @rmdir($simple_smtp_dkim_dir);
 }
 
 // 4. Clear scheduled cron events.
-$timestamp = wp_next_scheduled('simple_smtp_dkim_purge_logs');
-if ($timestamp) {
-    wp_unschedule_event($timestamp, 'simple_smtp_dkim_purge_logs');
+$simple_smtp_dkim_ts = wp_next_scheduled('simple_smtp_dkim_purge_logs');
+if ($simple_smtp_dkim_ts) {
+    wp_unschedule_event($simple_smtp_dkim_ts, 'simple_smtp_dkim_purge_logs');
 }

@@ -71,6 +71,7 @@ class Simple_SMTP_DKIM_Encryption {
         
         // Check if OpenSSL is available
         if (!function_exists('openssl_encrypt')) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: OpenSSL not available for encryption');
             return false;
         }
@@ -96,6 +97,7 @@ class Simple_SMTP_DKIM_Encryption {
             );
             
             if ($encrypted === false) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                 error_log('SMTP Config Manager: Encryption failed');
                 return false;
             }
@@ -112,6 +114,7 @@ class Simple_SMTP_DKIM_Encryption {
             return $result;
             
         } catch (Exception $e) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: Encryption error - ' . $e->getMessage());
             return false;
         }
@@ -130,6 +133,7 @@ class Simple_SMTP_DKIM_Encryption {
         
         // Check if OpenSSL is available
         if (!function_exists('openssl_decrypt')) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: OpenSSL not available for decryption');
             return false;
         }
@@ -145,6 +149,7 @@ class Simple_SMTP_DKIM_Encryption {
             $raw = base64_decode($encrypted_data);
             
             if ($raw === false) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                 error_log('SMTP Config Manager: Invalid encrypted data format');
                 return false;
             }
@@ -174,6 +179,7 @@ class Simple_SMTP_DKIM_Encryption {
                     );
                     
                     if ($decrypted === false) {
+                        // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                         error_log('SMTP Config Manager: Decryption failed');
                         return false;
                     }
@@ -199,10 +205,12 @@ class Simple_SMTP_DKIM_Encryption {
                 return $decrypted;
             }
             
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: Decryption failed for both new and legacy formats');
             return false;
             
         } catch (Exception $e) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: Decryption error - ' . $e->getMessage());
             return false;
         }
@@ -247,6 +255,7 @@ class Simple_SMTP_DKIM_Encryption {
         $decrypted = self::decrypt($encrypted_value);
         
         if ($decrypted === false) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log("SMTP Config Manager: Failed to decrypt option: $option_name");
             return $default;
         }
@@ -302,6 +311,7 @@ class Simple_SMTP_DKIM_Encryption {
             $file_size = filesize($file_path);
             
             if ($file_size > 0) {
+                // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fopen
                 $handle = fopen($file_path, 'w');
                 if ($handle) {
                     // Write random data
@@ -310,15 +320,19 @@ class Simple_SMTP_DKIM_Encryption {
                     } else {
                         $random_data = wp_generate_password($file_size, true, true);
                     }
+                    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fwrite
                     fwrite($handle, $random_data);
+                    // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose
                     fclose($handle);
                 }
             }
             
             // Now delete the file
+            // phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
             return unlink($file_path);
             
         } catch (Exception $e) {
+            // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
             error_log('SMTP Config Manager: Secure file deletion failed - ' . $e->getMessage());
             return false;
         }

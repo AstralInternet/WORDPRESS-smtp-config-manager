@@ -32,9 +32,9 @@ define('SIMPLE_SMTP_DKIM_UPLOAD_DIR', WP_CONTENT_DIR . '/simple-smtp-dkim/');
 
 if (!defined('SIMPLE_SMTP_DKIM_ENCRYPTION_KEY')) {
     if (is_admin() || wp_doing_ajax() || (defined('WP_CLI') && WP_CLI)) {
-        $db_key = get_option('simple_smtp_dkim_encryption_key', '');
-        if (!empty($db_key)) {
-            define('SIMPLE_SMTP_DKIM_ENCRYPTION_KEY', $db_key);
+        $simple_smtp_dkim_db_key = get_option('simple_smtp_dkim_encryption_key', '');
+        if (!empty($simple_smtp_dkim_db_key)) {
+            define('SIMPLE_SMTP_DKIM_ENCRYPTION_KEY', $simple_smtp_dkim_db_key);
             define('SIMPLE_SMTP_DKIM_KEY_IN_DB', true);
         } else {
             define('SIMPLE_SMTP_DKIM_ENCRYPTION_KEY', '');
@@ -54,7 +54,7 @@ if (!defined('SIMPLE_SMTP_DKIM_ENCRYPTION_KEY')) {
    Activation / Deactivation
    ========================================================================= */
 
-function activate_simple_smtp_dkim() {
+function simple_smtp_dkim_activate() {
     require_once SIMPLE_SMTP_DKIM_PATH . 'includes/class-smtp-activator.php';
     Simple_SMTP_DKIM_Activator::activate();
 }
@@ -65,12 +65,12 @@ function activate_simple_smtp_dkim() {
  *  *
  *  * @see Simple_SMTP_DKIM_Activator::deactivate()
  */
-function deactivate_simple_smtp_dkim() {
+function simple_smtp_dkim_deactivate() {
     require_once SIMPLE_SMTP_DKIM_PATH . 'includes/class-smtp-activator.php';
     Simple_SMTP_DKIM_Activator::deactivate();
 }
-register_activation_hook(__FILE__, 'activate_simple_smtp_dkim');
-register_deactivation_hook(__FILE__, 'deactivate_simple_smtp_dkim');
+register_activation_hook(__FILE__, 'simple_smtp_dkim_activate');
+register_deactivation_hook(__FILE__, 'simple_smtp_dkim_deactivate');
 
 /* =========================================================================
    Autoload classes (on plugins_loaded)
@@ -132,17 +132,17 @@ function simple_smtp_dkim_encryption_key_notice() {
     $nonce = wp_create_nonce('simple_smtp_dkim_migrate_key');
     ?>
     <div class="notice notice-warning is-dismissible" id="smtp-dkim-key-notice">
-        <p><strong><?php _e('Simple SMTP & DKIM — Security Recommendation:', 'simple-smtp-dkim'); ?></strong></p>
-        <p><?php _e('Your encryption key is currently stored in the database. For better security, it should be moved to your <code>wp-config.php</code> file.', 'simple-smtp-dkim'); ?></p>
+        <p><strong><?php esc_html_e('Simple SMTP & DKIM — Security Recommendation:', 'simple-smtp-dkim'); ?></strong></p>
+        <p><?php esc_html_e('Your encryption key is currently stored in the database. For better security, it should be moved to your <code>wp-config.php</code> file.', 'simple-smtp-dkim'); ?></p>
         <p>
             <button type="button" id="smtp-dkim-migrate-key-btn" class="button button-primary">
-                <?php _e('Move key to wp-config.php automatically', 'simple-smtp-dkim'); ?>
+                <?php esc_html_e('Move key to wp-config.php automatically', 'simple-smtp-dkim'); ?>
             </button>
             <span id="smtp-dkim-migrate-status" style="margin-left: 12px;"></span>
         </p>
         <details style="margin-top: 8px; margin-bottom: 8px;">
-            <summary style="cursor: pointer; color: #787c82; font-size: 13px;"><?php _e('Or add it manually', 'simple-smtp-dkim'); ?></summary>
-            <p style="margin-top: 8px;"><?php _e('Add this line to your <code>wp-config.php</code>, just before <code>/* That\'s all, stop editing! */</code>:', 'simple-smtp-dkim'); ?></p>
+            <summary style="cursor: pointer; color: #787c82; font-size: 13px;"><?php esc_html_e('Or add it manually', 'simple-smtp-dkim'); ?></summary>
+            <p style="margin-top: 8px;"><?php esc_html_e('Add this line to your <code>wp-config.php</code>, just before <code>/* That\'s all, stop editing! */</code>:', 'simple-smtp-dkim'); ?></p>
             <p><code>define('SIMPLE_SMTP_DKIM_ENCRYPTION_KEY', '<?php echo esc_html($key_value); ?>');</code></p>
         </details>
     </div>
@@ -212,7 +212,7 @@ function simple_smtp_dkim_ajax_migrate_key() {
     if ($wp_config === false) {
         wp_send_json_error(array('message' => __('Could not locate wp-config.php.', 'simple-smtp-dkim')));
     }
-    if (!is_writable($wp_config)) {
+    if (!wp_is_writable($wp_config)) {
         wp_send_json_error(array('message' => __('wp-config.php is not writable.', 'simple-smtp-dkim')));
     }
 
@@ -250,26 +250,26 @@ function simple_smtp_dkim_ajax_migrate_key() {
     }
 
     // Backup
-    $backup = $wp_config . '.smtp-dkim-backup-' . date('YmdHis');
+    $backup = $wp_config . '.smtp-dkim-backup-' . gmdate('YmdHis');
     if (!copy($wp_config, $backup)) {
         wp_send_json_error(array('message' => __('Could not create backup.', 'simple-smtp-dkim')));
     }
 
     if (file_put_contents($wp_config, $new) === false) {
         copy($backup, $wp_config);
-        @unlink($backup);
+        wp_delete_file($backup);
         wp_send_json_error(array('message' => __('Write failed. Original restored.', 'simple-smtp-dkim')));
     }
 
     // Verify
     if (strpos(file_get_contents($wp_config), "SIMPLE_SMTP_DKIM_ENCRYPTION_KEY") === false) {
         copy($backup, $wp_config);
-        @unlink($backup);
+        wp_delete_file($backup);
         wp_send_json_error(array('message' => __('Verification failed. Original restored.', 'simple-smtp-dkim')));
     }
 
     delete_option('simple_smtp_dkim_encryption_key');
-    @unlink($backup);
+    wp_delete_file($backup);
 
     wp_send_json_success(array('message' => __('Key moved to wp-config.php successfully.', 'simple-smtp-dkim')));
 }
@@ -294,9 +294,5 @@ function simple_smtp_dkim_locate_wp_config() {
    Translations
    ========================================================================= */
 
-function simple_smtp_dkim_load_textdomain() {
-    if (is_admin()) {
-        load_plugin_textdomain('simple-smtp-dkim', false, dirname(plugin_basename(__FILE__)) . '/languages/');
-    }
-}
-add_action('plugins_loaded', 'simple_smtp_dkim_load_textdomain');
+// Note: load_plugin_textdomain() is no longer needed since WordPress 4.6+.
+// Translations are automatically loaded from translate.wordpress.org.

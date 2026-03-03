@@ -65,15 +65,15 @@ class Simple_SMTP_DKIM_Ajax {
                 wp_send_json_error(array('message' => __('No saved password found. Please enter your password or save settings first.', 'simple-smtp-dkim')));
             }
         } else {
-            $password = isset($_POST['password']) ? $_POST['password'] : '';
+            $password = isset($_POST['password']) ? sanitize_text_field(wp_unslash($_POST['password'])) : '';
         }
 
         $settings = array(
-            'host'     => isset($_POST['host']) ? sanitize_text_field($_POST['host']) : '',
+            'host'     => isset($_POST['host']) ? sanitize_text_field(wp_unslash($_POST['host'])) : '',
             'port'     => isset($_POST['port']) ? intval($_POST['port']) : 587,
-            'secure'   => isset($_POST['secure']) ? sanitize_text_field($_POST['secure']) : 'tls',
+            'secure'   => isset($_POST['secure']) ? sanitize_text_field(wp_unslash($_POST['secure'])) : 'tls',
             'auth'     => isset($_POST['auth']) && $_POST['auth'] === 'true',
-            'username' => isset($_POST['username']) ? sanitize_text_field($_POST['username']) : '',
+            'username' => isset($_POST['username']) ? sanitize_text_field(wp_unslash($_POST['username'])) : '',
             'password' => $password,
         );
 
@@ -112,7 +112,7 @@ class Simple_SMTP_DKIM_Ajax {
         }
         set_transient($key, true, 30);
 
-        $to = isset($_POST['to_email']) ? sanitize_email($_POST['to_email']) : '';
+        $to = isset($_POST['to_email']) ? sanitize_email(wp_unslash($_POST['to_email'])) : '';
         if (empty($to) || !is_email($to)) {
             wp_send_json_error(array('message' => __('A valid recipient email address is required.', 'simple-smtp-dkim')));
         }
@@ -122,12 +122,12 @@ class Simple_SMTP_DKIM_Ajax {
 
         if ($use_temp) {
             $settings = array(
-                'host'     => isset($_POST['host']) ? sanitize_text_field($_POST['host']) : '',
+                'host'     => isset($_POST['host']) ? sanitize_text_field(wp_unslash($_POST['host'])) : '',
                 'port'     => isset($_POST['port']) ? intval($_POST['port']) : 587,
-                'secure'   => isset($_POST['secure']) ? sanitize_text_field($_POST['secure']) : 'tls',
+                'secure'   => isset($_POST['secure']) ? sanitize_text_field(wp_unslash($_POST['secure'])) : 'tls',
                 'auth'     => isset($_POST['auth']) ? (bool) $_POST['auth'] : true,
-                'username' => isset($_POST['username']) ? sanitize_text_field($_POST['username']) : '',
-                'password' => isset($_POST['password']) ? $_POST['password'] : '',
+                'username' => isset($_POST['username']) ? sanitize_text_field(wp_unslash($_POST['username'])) : '',
+                'password' => isset($_POST['password']) ? sanitize_text_field(wp_unslash($_POST['password'])) : '',
             );
             if (empty($settings['host'])) {
                 wp_send_json_error(array('message' => __('SMTP host is required.', 'simple-smtp-dkim')));
@@ -159,9 +159,9 @@ class Simple_SMTP_DKIM_Ajax {
         self::require_admin();
         check_ajax_referer('simple_smtp_dkim_validate_dkim', 'nonce');
 
-        $domain   = isset($_POST['dkim_domain']) ? sanitize_text_field($_POST['dkim_domain']) : '';
-        $selector = isset($_POST['dkim_selector']) ? sanitize_text_field($_POST['dkim_selector']) : '';
-        $storage  = isset($_POST['storage_method']) ? sanitize_text_field($_POST['storage_method']) : 'database';
+        $domain   = isset($_POST['dkim_domain']) ? sanitize_text_field(wp_unslash($_POST['dkim_domain'])) : '';
+        $selector = isset($_POST['dkim_selector']) ? sanitize_text_field(wp_unslash($_POST['dkim_selector'])) : '';
+        $storage  = isset($_POST['storage_method']) ? sanitize_text_field(wp_unslash($_POST['storage_method'])) : 'database';
 
         if (empty($domain))   wp_send_json_error(array('message' => __('DKIM domain is required.', 'simple-smtp-dkim')));
         if (empty($selector)) wp_send_json_error(array('message' => __('DKIM selector is required.', 'simple-smtp-dkim')));
@@ -169,7 +169,7 @@ class Simple_SMTP_DKIM_Ajax {
         // Retrieve private key
         $private_key = '';
         if ($storage === 'file') {
-            $fp = isset($_POST['file_path']) ? sanitize_text_field($_POST['file_path']) : '';
+            $fp = isset($_POST['file_path']) ? sanitize_text_field(wp_unslash($_POST['file_path'])) : '';
             if (empty($fp)) wp_send_json_error(array('message' => __('File path is required.', 'simple-smtp-dkim')));
 
             $real = realpath($fp);
@@ -266,6 +266,7 @@ class Simple_SMTP_DKIM_Ajax {
             ));
         } catch (Exception $e) {
             if (get_option('simple_smtp_dkim_debug_mode', false)) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
                 error_log('SMTP Config: DKIM keygen failed — ' . $e->getMessage());
             }
             wp_send_json_error(array('message' => __('Key generation failed: ', 'simple-smtp-dkim') . $e->getMessage()));
