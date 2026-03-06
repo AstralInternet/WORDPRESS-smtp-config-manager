@@ -121,13 +121,22 @@ class Simple_SMTP_DKIM_Ajax {
         $settings = null;
 
         if ($use_temp) {
+            // Resolve password: prefer what was typed; fall back to the saved (encrypted) password
+            // when the field was left blank but a password is already stored.
+            $raw_password    = isset($_POST['password']) ? sanitize_text_field(wp_unslash($_POST['password'])) : '';
+            $use_saved_pw    = isset($_POST['use_saved_password']) && 'true' === $_POST['use_saved_password'];
+
+            if ('' === $raw_password && $use_saved_pw) {
+                $raw_password = Simple_SMTP_DKIM_Encryption::get_decrypted_option('simple_smtp_dkim_password', '');
+            }
+
             $settings = array(
                 'host'     => isset($_POST['host']) ? sanitize_text_field(wp_unslash($_POST['host'])) : '',
                 'port'     => isset($_POST['port']) ? intval($_POST['port']) : 587,
                 'secure'   => isset($_POST['secure']) ? sanitize_text_field(wp_unslash($_POST['secure'])) : 'tls',
                 'auth'     => isset($_POST['auth']) ? (bool) $_POST['auth'] : true,
                 'username' => isset($_POST['username']) ? sanitize_text_field(wp_unslash($_POST['username'])) : '',
-                'password' => isset($_POST['password']) ? sanitize_text_field(wp_unslash($_POST['password'])) : '',
+                'password' => $raw_password,
             );
             if (empty($settings['host'])) {
                 wp_send_json_error(array('message' => __('SMTP host is required.', 'simple-smtp-dkim')));

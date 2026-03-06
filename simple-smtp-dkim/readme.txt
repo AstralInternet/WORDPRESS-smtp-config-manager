@@ -3,12 +3,12 @@ Contributors: @astralinternet, @neutrall, @sleyeur
 Tags: smtp, email, dkim, mail, mailer
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-A free, comprehensive SMTP solution with email logging, DKIM signing, SPF validation, and encrypted credential storage for WordPress.
+A free, comprehensive SMTP solution with email logging, DKIM signing, and encrypted credential storage for WordPress.
 
 == Description ==
 

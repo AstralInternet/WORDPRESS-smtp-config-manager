@@ -27,6 +27,16 @@ class Simple_SMTP_DKIM_Mailer {
      * Store current email data for logging
      */
     private static $current_email_data = null;
+
+    /**
+     * Temporary SMTP settings used by send_test_email().
+     *
+     * When non-null, configure_phpmailer() uses these values instead of the
+     * database, so no options are ever written during a test-send.
+     *
+     * @var array|null
+     */
+    private static $test_settings = null;
     
     /**
      * Initialize the mailer
@@ -68,6 +78,37 @@ class Simple_SMTP_DKIM_Mailer {
      * @param PHPMailer $phpmailer The PHPMailer instance
      */
     public static function configure_phpmailer($phpmailer) {
+        // When a test-send is in progress, use the supplied in-memory settings
+        // instead of reading from the database.  This avoids any DB writes.
+        if (self::$test_settings !== null) {
+            $s = self::$test_settings;
+            try {
+                $phpmailer->isSMTP();
+                $phpmailer->Host       = $s['host'];
+                $phpmailer->Port       = $s['port'];
+                $phpmailer->SMTPSecure = $s['secure'];
+
+                if (!empty($s['auth'])) {
+                    $phpmailer->SMTPAuth = true;
+                    $phpmailer->Username = $s['username'];
+                    $phpmailer->Password = $s['password'];
+                } else {
+                    $phpmailer->SMTPAuth = false;
+                }
+
+                $phpmailer->Timeout = 30;
+                $phpmailer->CharSet = 'UTF-8';
+
+                if (get_option('simple_smtp_dkim_dkim_enabled', false) && get_option('simple_smtp_dkim_dns_verified', false)) {
+                    self::configure_dkim($phpmailer);
+                }
+            } catch (Exception $e) {
+                // phpcs:ignore WordPress.PHP.DevelopmentFunctions.error_log_error_log
+                error_log('SMTP Config Manager: PHPMailer test-configuration error - ' . $e->getMessage());
+            }
+            return;
+        }
+
         // Check if SMTP is enabled
         if (!get_option('simple_smtp_dkim_enabled', false)) {
             return;
@@ -476,20 +517,12 @@ class Simple_SMTP_DKIM_Mailer {
      * @return array Result with 'success' boolean and 'message' string
      */
     public static function send_test_email($to_email, $settings = null) {
-        // Temporarily enable SMTP for test if settings provided
-        $original_enabled = get_option('simple_smtp_dkim_enabled');
-        
+        // When custom settings are supplied, store them in the static override so
+        // configure_phpmailer() picks them up without touching the database.
         if ($settings !== null) {
-            // Temporarily save test settings
-            update_option('simple_smtp_dkim_enabled', true);
-            update_option('simple_smtp_dkim_host', $settings['host']);
-            update_option('simple_smtp_dkim_port', $settings['port']);
-            update_option('simple_smtp_dkim_secure', $settings['secure']);
-            update_option('simple_smtp_dkim_auth', $settings['auth']);
-            update_option('simple_smtp_dkim_username', $settings['username']);
-            Simple_SMTP_DKIM_Encryption::save_encrypted_option('simple_smtp_dkim_password', $settings['password']);
+            self::$test_settings = $settings;
         }
-        
+
         // Gather email details
         $site_name = get_option('blogname');
         $site_url = get_option('siteurl');
@@ -524,12 +557,10 @@ class Simple_SMTP_DKIM_Mailer {
         
         // Remove the content type filter (must use same reference)
         remove_filter('wp_mail_content_type', $html_content_type);
-        
-        // Restore original settings if we changed them
-        if ($settings !== null) {
-            update_option('simple_smtp_dkim_enabled', $original_enabled);
-        }
-        
+
+        // Clear the in-memory override so normal mail delivery is unaffected.
+        self::$test_settings = null;
+
         if ($result) {
             return array(
                 'success' => true,
