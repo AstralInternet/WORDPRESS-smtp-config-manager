@@ -232,23 +232,23 @@ $provider_hosts = array(
             <div class="smtp-oauth-guide smtp-oauth-guide-microsoft">
                 <h3>Microsoft 365 / Outlook</h3>
                 <ol>
-                    <li><?php esc_html_e('Go to <strong>Azure Portal → App registrations → New registration</strong>', 'simple-smtp-dkim'); ?></li>
+                    <li><?php echo wp_kses( __( 'Go to <strong>Azure Portal → App registrations → New registration</strong>', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
                     <li><?php esc_html_e('Set redirect URI to your site URL', 'simple-smtp-dkim'); ?></li>
-                    <li><?php esc_html_e('Under <strong>Certificates & secrets</strong>, create a Client Secret or upload a Certificate', 'simple-smtp-dkim'); ?></li>
-                    <li><?php esc_html_e('Under <strong>API permissions</strong>, add <code>SMTP.Send</code> (delegated) for authorization_code, or <code>Mail.Send</code> (application) for client_credentials', 'simple-smtp-dkim'); ?></li>
-                    <li><?php esc_html_e('Copy the <strong>Application (client) ID</strong> and <strong>Directory (tenant) ID</strong>', 'simple-smtp-dkim'); ?></li>
+                    <li><?php echo wp_kses( __( 'Under <strong>Certificates & secrets</strong>, create a Client Secret or upload a Certificate', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
+                    <li><?php echo wp_kses( __( 'Under <strong>API permissions</strong>, add <code>SMTP.Send</code> (delegated) for authorization_code, or <code>Mail.Send</code> (application) for client_credentials', 'simple-smtp-dkim' ), array( 'strong' => array(), 'code' => array() ) ); ?></li>
+                    <li><?php echo wp_kses( __( 'Copy the <strong>Application (client) ID</strong> and <strong>Directory (tenant) ID</strong>', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
                     <li><?php esc_html_e('Obtain a Refresh Token using the OAuth2 authorization flow', 'simple-smtp-dkim'); ?></li>
                 </ol>
             </div>
             <div class="smtp-oauth-guide smtp-oauth-guide-google">
                 <h3>Google / Gmail</h3>
                 <ol>
-                    <li><?php esc_html_e('Go to <strong>Google Cloud Console → APIs & Services → Credentials</strong>', 'simple-smtp-dkim'); ?></li>
-                    <li><?php esc_html_e('Create an <strong>OAuth 2.0 Client ID</strong> (Web application)', 'simple-smtp-dkim'); ?></li>
+                    <li><?php echo wp_kses( __( 'Go to <strong>Google Cloud Console → APIs & Services → Credentials</strong>', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
+                    <li><?php echo wp_kses( __( 'Create an <strong>OAuth 2.0 Client ID</strong> (Web application)', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
                     <li><?php esc_html_e('Set redirect URI to your site URL', 'simple-smtp-dkim'); ?></li>
-                    <li><?php esc_html_e('Enable the <strong>Gmail API</strong> in your project', 'simple-smtp-dkim'); ?></li>
-                    <li><?php esc_html_e('Copy the <strong>Client ID</strong> and <strong>Client Secret</strong>', 'simple-smtp-dkim'); ?></li>
-                    <li><?php esc_html_e('For service accounts: enable <strong>domain-wide delegation</strong> in Google Workspace Admin', 'simple-smtp-dkim'); ?></li>
+                    <li><?php echo wp_kses( __( 'Enable the <strong>Gmail API</strong> in your project', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
+                    <li><?php echo wp_kses( __( 'Copy the <strong>Client ID</strong> and <strong>Client Secret</strong>', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
+                    <li><?php echo wp_kses( __( 'For service accounts: enable <strong>domain-wide delegation</strong> in Google Workspace Admin', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?></li>
                 </ol>
             </div>
         </div>

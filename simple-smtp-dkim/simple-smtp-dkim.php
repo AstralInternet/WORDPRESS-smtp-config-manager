@@ -133,7 +133,7 @@ function simple_smtp_dkim_encryption_key_notice() {
     ?>
     <div class="notice notice-warning is-dismissible" id="smtp-dkim-key-notice">
         <p><strong><?php esc_html_e('Simple SMTP & DKIM — Security Recommendation:', 'simple-smtp-dkim'); ?></strong></p>
-        <p><?php esc_html_e('Your encryption key is currently stored in the database. For better security, it should be moved to your <code>wp-config.php</code> file.', 'simple-smtp-dkim'); ?></p>
+        <p><?php echo wp_kses( __( 'Your encryption key is currently stored in the database. For better security, it should be moved to your <code>wp-config.php</code> file.', 'simple-smtp-dkim' ), array( 'code' => array() ) ); ?></p>
         <p>
             <button type="button" id="smtp-dkim-migrate-key-btn" class="button button-primary">
                 <?php esc_html_e('Move key to wp-config.php automatically', 'simple-smtp-dkim'); ?>
@@ -142,7 +142,7 @@ function simple_smtp_dkim_encryption_key_notice() {
         </p>
         <details style="margin-top: 8px; margin-bottom: 8px;">
             <summary style="cursor: pointer; color: #787c82; font-size: 13px;"><?php esc_html_e('Or add it manually', 'simple-smtp-dkim'); ?></summary>
-            <p style="margin-top: 8px;"><?php esc_html_e('Add this line to your <code>wp-config.php</code>, just before <code>/* That\'s all, stop editing! */</code>:', 'simple-smtp-dkim'); ?></p>
+            <p style="margin-top: 8px;"><?php echo wp_kses( __( 'Add this line to your <code>wp-config.php</code>, just before <code>/* That\'s all, stop editing! */</code>:', 'simple-smtp-dkim' ), array( 'code' => array() ) ); ?></p>
             <p><code>define('SIMPLE_SMTP_DKIM_ENCRYPTION_KEY', '<?php echo esc_html($key_value); ?>');</code></p>
         </details>
     </div>

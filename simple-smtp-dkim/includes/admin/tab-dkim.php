@@ -47,12 +47,12 @@ $status         = Simple_SMTP_DKIM_Validator::get_dkim_status();
                         <?php if ($enabled && !$dns_verified): ?>
                             <p class="description" style="color:#d63638; margin-top:8px;">
                                 <span class="dashicons dashicons-warning" aria-hidden="true" style="font-size:16px;"></span>
-                                <?php esc_html_e('DKIM is enabled but <strong>not signing emails</strong> yet. Complete the DNS validation below to activate signing.', 'simple-smtp-dkim'); ?>
+                                <?php echo wp_kses( __( 'DKIM is enabled but <strong>not signing emails</strong> yet. Complete the DNS validation below to activate signing.', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?>
                             </p>
                         <?php elseif ($enabled && $dns_verified): ?>
                             <p class="description" style="color:#00a32a; margin-top:8px;">
                                 <span class="dashicons dashicons-yes-alt" aria-hidden="true" style="font-size:16px;"></span>
-                                <?php esc_html_e('DKIM is <strong>active</strong> — outgoing emails are being signed.', 'simple-smtp-dkim'); ?>
+                                <?php echo wp_kses( __( 'DKIM is <strong>active</strong> — outgoing emails are being signed.', 'simple-smtp-dkim' ), array( 'strong' => array() ) ); ?>
                             </p>
                         <?php endif; ?>
                     </td>
