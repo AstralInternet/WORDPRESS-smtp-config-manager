@@ -35,15 +35,17 @@ function simple_smtp_dkim_save_mailer() {
     // Enable/disable: the toggle controls THIS sub-tab's mailer
     $wants_enabled = isset($_POST['simple_smtp_dkim_enabled']) && sanitize_text_field(wp_unslash($_POST['simple_smtp_dkim_enabled']));
 
+    // The enabled flag is read on EVERY request (init hook), so it must be
+    // autoloaded — otherwise each frontend page load pays an extra DB query.
     if ($wants_enabled) {
         // Activate this mailer type (deactivates the other implicitly)
-        $u::update_option_no_autoload('simple_smtp_dkim_enabled', 1);
+        $u::update_option_autoloaded('simple_smtp_dkim_enabled', 1);
         $u::update_option_no_autoload('simple_smtp_dkim_mailer_type', $sub_tab);
     } else {
         // Only disable if this sub-tab IS the currently active mailer
         $current_type = get_option('simple_smtp_dkim_mailer_type', 'smtp');
         if ($current_type === $sub_tab) {
-            $u::update_option_no_autoload('simple_smtp_dkim_enabled', 0);
+            $u::update_option_autoloaded('simple_smtp_dkim_enabled', 0);
         }
         // If disabling a non-active type, don't touch the enabled flag
     }
@@ -205,8 +207,11 @@ function simple_smtp_dkim_save_logging() {
     $was = get_option('simple_smtp_dkim_logging_enabled', false);
     $now = isset($_POST['simple_smtp_dkim_logging_enabled']) ? 1 : 0;
 
+    $retention = isset($_POST['simple_smtp_dkim_log_retention_days']) ? intval($_POST['simple_smtp_dkim_log_retention_days']) : 30;
+    $retention = max(0, min(365, $retention));
+
     $u::update_option_no_autoload('simple_smtp_dkim_logging_enabled',   $now);
-    $u::update_option_no_autoload('simple_smtp_dkim_log_retention_days', isset($_POST['simple_smtp_dkim_log_retention_days']) ? intval($_POST['simple_smtp_dkim_log_retention_days']) : 30);
+    $u::update_option_no_autoload('simple_smtp_dkim_log_retention_days', $retention);
     $u::update_option_no_autoload('simple_smtp_dkim_log_email_body',    isset($_POST['simple_smtp_dkim_log_email_body']) ? 1 : 0);
 
     if ($now && !$was) {

@@ -226,16 +226,40 @@ class Simple_SMTP_DKIM_Encryption {
     public static function save_encrypted_option($option_name, $value) {
         if (empty($value)) {
             // If empty, just save empty string (no need to encrypt)
-            return update_option($option_name, '');
+            self::update_no_autoload($option_name, '');
+            return true;
         }
-        
+
         $encrypted = self::encrypt($value);
-        
+
         if ($encrypted === false) {
             return false;
         }
-        
-        return update_option($option_name, $encrypted);
+
+        self::update_no_autoload($option_name, $encrypted);
+        return true;
+    }
+
+    /**
+     * Persist an option without autoload — encrypted payloads (passwords,
+     * private keys, tokens) are only read when needed and must never be
+     * loaded into memory on every page via alloptions.
+     *  *
+     *  * @since 1.1.0
+     *  *
+     *  * @param string $option_name Option name.
+     *  * @param mixed  $value       Option value.
+     */
+    private static function update_no_autoload($option_name, $value) {
+        if (class_exists('Simple_SMTP_DKIM_Helpers')) {
+            Simple_SMTP_DKIM_Helpers::update_option_no_autoload($option_name, $value);
+            return;
+        }
+        if (get_option($option_name) === false) {
+            add_option($option_name, $value, '', 'no');
+        } else {
+            update_option($option_name, $value);
+        }
     }
     
     /**

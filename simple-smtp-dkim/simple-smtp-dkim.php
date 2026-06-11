@@ -3,7 +3,7 @@
  * Plugin Name: Simple SMTP & DKIM
  * Plugin URI: https://github.com/astralinternet/simple-smtp-dkim
  * Description: A secure SMTP configuration manager with DKIM support for WordPress
- * Version: 1.0.1
+ * Version: 1.1.0
  * Author: Astral Internet
  * Author URI: https://astralinternet.com
  * License: GPL v2 or later
@@ -20,7 +20,7 @@ if (!defined('WPINC')) {
    Constants
    ========================================================================= */
 
-define('SIMPLE_SMTP_DKIM_VERSION',    '1.0.1');
+define('SIMPLE_SMTP_DKIM_VERSION',    '1.1.0');
 define('SIMPLE_SMTP_DKIM_PATH',       plugin_dir_path(__FILE__));
 define('SIMPLE_SMTP_DKIM_URL',        plugin_dir_url(__FILE__));
 define('SIMPLE_SMTP_DKIM_UPLOAD_DIR', WP_CONTENT_DIR . '/simple-smtp-dkim/');
@@ -91,6 +91,9 @@ function simple_smtp_dkim_load_classes() {
     if (is_admin()) {
         require_once SIMPLE_SMTP_DKIM_PATH . 'includes/class-smtp-admin.php';
     }
+
+    // Daily log purge — must be hooked on every load so WP-Cron can run it.
+    add_action('simple_smtp_dkim_purge_logs', array('Simple_SMTP_DKIM_Logger', 'purge_old_logs'));
 }
 add_action('plugins_loaded', 'simple_smtp_dkim_load_classes');
 

@@ -172,19 +172,71 @@ class Simple_SMTP_DKIM_Logger {
         }
         $total = $wpdb->get_var($count_query); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
         
-        // Get logs
-        $offset = ($args['page'] - 1) * $args['per_page'];
+        // Get logs — per_page <= 0 means "no limit" (used by the CSV export)
         $limit = (int) $args['per_page'];
-        
-        $query = "SELECT * FROM " . self::$table_name . " WHERE " . $where_clause . " ORDER BY $order_by $order LIMIT %d OFFSET %d"; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-        $query_values = array_merge($where_values, array($limit, $offset));
-        
-        $logs = $wpdb->get_results($wpdb->prepare($query, $query_values), ARRAY_A); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
-        
+
+        if ($limit > 0) {
+            $offset       = (max(1, (int) $args['page']) - 1) * $limit;
+            $query        = "SELECT * FROM " . self::$table_name . " WHERE " . $where_clause . " ORDER BY $order_by $order LIMIT %d OFFSET %d"; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            $query_values = array_merge($where_values, array($limit, $offset));
+        } else {
+            $query        = "SELECT * FROM " . self::$table_name . " WHERE " . $where_clause . " ORDER BY $order_by $order"; // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            $query_values = $where_values;
+        }
+
+        if (!empty($query_values)) {
+            $logs = $wpdb->get_results($wpdb->prepare($query, $query_values), ARRAY_A); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+        } else {
+            $logs = $wpdb->get_results($query, ARRAY_A); // phpcs:ignore WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+        }
+
         return array(
             'logs' => $logs,
             'total' => (int) $total,
-            'pages' => ceil($total / $args['per_page']),
+            'pages' => $limit > 0 ? (int) ceil($total / $limit) : 1,
+        );
+    }
+
+    /**
+     * Count logs per status (single aggregated query) — used by the
+     * filter pills in the Email Logs tab.
+     *  *
+     *  * @since 1.1.0
+     *  *
+     *  * @param string $search Optional search term applied to to/from/subject.
+     *  * @return array {all, success, failed}
+     */
+    public static function count_by_status($search = '') {
+        self::ensure_table();
+        global $wpdb;
+
+        if ($search !== '') {
+            $like = '%' . $wpdb->esc_like($search) . '%';
+            // phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            $row = $wpdb->get_row($wpdb->prepare(
+                "SELECT COUNT(*) AS all_count,
+                        SUM(status = 'success') AS success_count,
+                        SUM(status = 'failed') AS failed_count
+                 FROM " . self::$table_name . "
+                 WHERE (to_email LIKE %s OR from_email LIKE %s OR subject LIKE %s)",
+                $like, $like, $like
+            ));
+            // phpcs:enable
+        } else {
+            // phpcs:disable WordPress.DB.DirectDatabaseQuery, WordPress.DB.PreparedSQL.NotPrepared, PluginCheck.Security.DirectDB.UnescapedDBParameter
+            $row = $wpdb->get_row(
+                "SELECT COUNT(*) AS all_count,
+                        SUM(status = 'success') AS success_count,
+                        SUM(status = 'failed') AS failed_count
+                 FROM " . self::$table_name
+            );
+            // phpcs:enable
+        }
+
+        return array(
+            'all'     => $row ? (int) $row->all_count : 0,
+            'success' => $row ? (int) $row->success_count : 0,
+            'failed'  => $row ? (int) $row->failed_count : 0,
         );
     }
     

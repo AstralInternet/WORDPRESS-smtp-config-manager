@@ -134,7 +134,7 @@ class Simple_SMTP_DKIM_Ajax {
                 'host'     => isset($_POST['host']) ? sanitize_text_field(wp_unslash($_POST['host'])) : '',
                 'port'     => isset($_POST['port']) ? intval($_POST['port']) : 587,
                 'secure'   => isset($_POST['secure']) ? sanitize_text_field(wp_unslash($_POST['secure'])) : 'tls',
-                'auth'     => isset($_POST['auth']) ? (bool) $_POST['auth'] : true,
+                'auth'     => isset($_POST['auth']) ? 'true' === $_POST['auth'] : true,
                 'username' => isset($_POST['username']) ? sanitize_text_field(wp_unslash($_POST['username'])) : '',
                 'password' => $raw_password,
             );
